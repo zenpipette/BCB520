@@ -1,0 +1,91 @@
+---
+title: "BCB 520 Assignment 3"
+author: "Sharon"
+date: "2025-01-30"
+format: html
+---
+
+# Infant Fecal Microbiome Correlations
+
+Herein lies BCB 520 assignment 3, which contains an infant fecal microbiome correlation plot.
+
+What does that mean?
+
+First, a little bit about the data: I have a data table that contains participants (first column, 21 rows of participant IDs), and bacterial genera read counts averaged over 9 timepoints per participant. There were initially over 1000 bacterial genera columns of data, but I have trimmed it down to the top 30.
+
+Before I go on, we will load libraries and take a peek at the data table.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+# Libraries
+
+```{r}
+library(dplyr)
+library(tidyverse)
+library(readr)
+library(Hmisc)
+library(corrplot)
+```
+
+# Import and look at the .rds file
+
+Load the data set.
+
+```{r}
+IF_top30 <- readRDS("C:/Users/sharo/Desktop/BCB 520/Assignments/IF_top30.rds")
+```
+
+Below is subset of the data. You can see the participant ID as the first column (A003, A005, etc) and bacterial genera relative abundance (expressed as percentage) in the following columns. Here we see the first 4 columns of bacteria genera, but for the correlation plot below, we use all 30.
+
+```{r}
+IF_top30[,1:4]
+```
+
+# Create correlation matrix
+
+I am using a function "rcorr" to easily create a correlation matrix for my data using spearman rank correlations. This is very similar to running a mini regression for each pair of columns in my data table above, except the spearman correlation is for non-parametric data like bacterial relative abundance. 
+
+What rcorr does is take the column Bacteriodes above and run a correlation with itself, with a resulting correlation coefficient =1. Then it takes Bacteriodes and runs a correlation with Escheria.Shigella, and so on until Bacteriodes has been compared to every other columnn. Then it keeps going and compares "everything to everything". See the first plot below.
+
+```{r}
+IF_IF_rcorr <- rcorr(as.matrix(IF_top30), type=c("spearman"))
+```
+
+## Correlation plot 
+
+Below is a raw plot. Note the dark diagonal line that corresponds to correlation 1. This represents something compared to itself (like Bacteriodes to Bacteriodes mentioned above).
+
+Each circle represents the direction and magnitude of the correlation as described by the legend on the left. Strong correlations are indicated with a large, dark circle. Blue means positive correlation, red means negative correlation.
+
+But wait- I have a better one below. I felt that this plot may be useful to understand what rcorr is doing before I trim it down to what is actually interesting (to me).
+
+```{r}
+corrplot(IF_IF_rcorr$r, pch.col='black', pch.cex=0.7,
+         method=c("circle"), tl.cex=0.5)
+mtext("Infant Fecal Microbiome Correlation- Basic", line =3)
+```
+Now in order to improve the usefulness of the graphic, I have done several things:
+
+Remove the upper triangle. You may notice that the upper and lower triangles are mirror images, so this is just redundant data.
+
+Remove the 1-1 correlations (the dark blue diaganol). The fact that something is 1-1 correlated with itself is not useful or interesting.
+
+Flag significant p values, because it would be nice to know which correlations are actually statistically significant. One star represents a "trend" (p < 0.05) and two stars indicate a significant correlation (P < 0.01). [Don't people usually say p < 0.05 is significant? Yes, but this is exploratory data, and we just wanted a rough way to correct for false discovery rate. Don't get me started on p value adjustments for correlation matrices. It's a living nightmare.]
+
+I have also clustered the correlations with similar direction and magnitude using "Angular order of the Eigenvectors" (AOE). Basically that groups dots with similar colors and sizes together. There are other clustering methods, but I don't understand them well enough to know which is the best.
+
+# Conclusion
+
+This is exploratory, hypothesis-generating data. There was no treatment or intervention that should be considered. The type of information we can gather is like this: Bacteriodes appears to be negatively correlated with many other genera. Akkermansia appears postively correlated with several other genera. And so on.
+
+```{r}
+corrplot(IF_IF_rcorr$r, p.mat=IF_IF_rcorr$P, sig.level=c(0.01,0.05), 
+         insig='label_sig', pch.col='black', pch.cex=0.7,
+         method=c("circle"), tl.cex=0.5, order="AOE", type="lower", diag = F)
+mtext("Infant Fecal Microbiome Correlation with AOE Cluster (6 mo avg)", line =3)
+```
+
+
+

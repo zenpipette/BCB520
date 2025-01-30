@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Sharon">
+<meta name="dcterms.date" content="2025-01-30">
 
-<title>BCB520Portfolio</title>
+<title>BCB520Portfolio - BCB 520 Assignment 3</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,27 +22,59 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -68,77 +102,19 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">BCB520Portfolio</span>
     </a>
   </div>
@@ -149,7 +125,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">about</span></a>
   </li>  
   <li class="nav-item compact">
@@ -172,133 +148,147 @@ window.Quarto = {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">BCB520Portfolio</h1>
+    <div class="quarto-title column-body">
+      <h1 class="title">BCB 520 Assignment 3</h1>
                       </div>
   </div>
     
   
-  <div class="quarto-title-meta column-page-left">
+  <div class="quarto-title-meta">
 
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Sharon </p>
+            </div>
+    </div>
       
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">January 30, 2025</p>
+      </div>
+    </div>
     
       
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(3)</span></div><div class="category" data-category="news">news <span class="quarto-category-count">(1)</span></div></div></div>
+    
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
 
+<section id="infant-fecal-microbiome-correlations" class="level1">
+<h1>Infant Fecal Microbiome Correlations</h1>
+<p>Herein lies BCB 520 assignment 3, which contains an infant fecal microbiome correlation plot.</p>
+<p>What does that mean?</p>
+<p>First, a little bit about the data: I have a data table that contains participants (first column, 21 rows of participant IDs), and bacterial genera read counts averaged over 9 timepoints per participant. There were initially over 1000 bacterial genera columns of data, but I have trimmed it down to the top 30.</p>
+<p>Before I go on, we will load libraries and take a peek at the data table.</p>
+</section>
+<section id="libraries" class="level1">
+<h1>Libraries</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Hmisc)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="import-and-look-at-the-.rds-file" class="level1">
+<h1>Import and look at the .rds file</h1>
+<p>Load the data set.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>IF_top30 <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"C:/Users/sharo/Desktop/BCB 520/Assignments/IF_top30.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Below is subset of the data. You can see the participant ID as the first column (A003, A005, etc) and bacterial genera relative abundance (expressed as percentage) in the following columns. Here we see the first 4 columns of bacteria genera, but for the correlation plot below, we use all 30.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>IF_top30[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     Bacteroides Escherichia.Shigella Veillonella Clostridium.sensu.stricto
+A003  0.23493134         24.673454640   6.6693137               8.296923750
+A005  4.02761085         20.209190530  11.1726579               6.019777140
+A007  0.19334102          4.074305556  24.9752758               0.659688178
+A009  0.02770472         57.396699533   0.1416980              11.107959633
+A011  9.26831811          4.852269800  18.2515791               0.052937900
+A013  0.25171539         14.938690870  25.1883604               2.902620620
+A015 40.65170057         13.094583838   2.0534671               0.152828987
+A017 29.87910938          4.391378011   5.1910630               0.307567033
+A019 44.56634097          7.588655580   5.0236797               0.106448550
+A021 40.75502674          1.106360367   4.9050189               3.952965600
+A025 34.51478583          1.733203256   3.5605401               0.000000000
+A027  1.02156002          6.573109900  28.7444037              24.638294267
+A029 44.22892401         23.098446878   2.1665187               0.090762833
+A031  0.05744295         62.947694350   3.3153721              26.952580000
+A033 38.51864961         12.478839610   6.6155465               7.548103950
+A035 34.68255444          6.776953956   1.5039755              32.013236233
+A037 14.03453994         18.774367287  10.5120452              24.897731312
+A039  0.11653624         47.718616850  17.9059235               2.086916700
+A041 21.72538480          9.548148850   0.5365920              10.075460910
+A043  8.18592391          0.006921912   4.7780929              17.086879375
+A045 64.73004397          8.060339722   0.2979979               0.002079567</code></pre>
+</div>
+</div>
+</section>
+<section id="create-correlation-matrix" class="level1">
+<h1>Create correlation matrix</h1>
+<p>I am using a function “rcorr” to easily create a correlation matrix for my data using spearman rank correlations. This is very similar to running a mini regression for each pair of columns in my data table above, except the spearman correlation is for non-parametric data like bacterial relative abundance.</p>
+<p>What rcorr does is take the column Bacteriodes above and run a correlation with itself, with a resulting correlation coefficient =1. Then it takes Bacteriodes and runs a correlation with Escheria.Shigella, and so on until Bacteriodes has been compared to every other columnn. Then it keeps going and compares “everything to everything”. See the first plot below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>IF_IF_rcorr <span class="ot">&lt;-</span> <span class="fu">rcorr</span>(<span class="fu">as.matrix</span>(IF_top30), <span class="at">type=</span><span class="fu">c</span>(<span class="st">"spearman"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="correlation-plot" class="level2">
+<h2 class="anchored" data-anchor-id="correlation-plot">Correlation plot</h2>
+<p>Below is a raw plot. Note the dark diagonal line that corresponds to correlation 1. This represents something compared to itself (like Bacteriodes to Bacteriodes mentioned above).</p>
+<p>Each circle represents the direction and magnitude of the correlation as described by the legend on the left. Strong correlations are indicated with a large, dark circle. Blue means positive correlation, red means negative correlation.</p>
+<p>But wait- I have a better one below. I felt that this plot may be useful to understand what rcorr is doing before I trim it down to what is actually interesting (to me).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(IF_IF_rcorr<span class="sc">$</span>r, <span class="at">pch.col=</span><span class="st">'black'</span>, <span class="at">pch.cex=</span><span class="fl">0.7</span>,</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">method=</span><span class="fu">c</span>(<span class="st">"circle"</span>), <span class="at">tl.cex=</span><span class="fl">0.5</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Infant Fecal Microbiome Correlation- Basic"</span>, <span class="at">line =</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Now in order to improve the usefulness of the graphic, I have done several things:</p>
+<p>Remove the upper triangle. You may notice that the upper and lower triangles are mirror images, so this is just redundant data.</p>
+<p>Remove the 1-1 correlations (the dark blue diaganol). The fact that something is 1-1 correlated with itself is not useful or interesting.</p>
+<p>Flag significant p values, because it would be nice to know which correlations are actually statistically significant. One star represents a “trend” (p &lt; 0.05) and two stars indicate a significant correlation (P &lt; 0.01). [Don’t people usually say p &lt; 0.05 is significant? Yes, but this is exploratory data, and we just wanted a rough way to correct for false discovery rate. Don’t get me started on p value adjustments for correlation matrices. It’s a living nightmare.]</p>
+<p>I have also clustered the correlations with similar direction and magnitude using “Angular order of the Eigenvectors” (AOE). Basically that groups dots with similar colors and sizes together. There are other clustering methods, but I don’t understand them well enough to know which is the best.</p>
+</section>
+</section>
+<section id="conclusion" class="level1">
+<h1>Conclusion</h1>
+<p>This is exploratory, hypothesis-generating data. There was no treatment or intervention that should be considered. The type of information we can gather is like this: Bacteriodes appears to be negatively correlated with many other genera. Akkermansia appears postively correlated with several other genera. And so on.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(IF_IF_rcorr<span class="sc">$</span>r, <span class="at">p.mat=</span>IF_IF_rcorr<span class="sc">$</span>P, <span class="at">sig.level=</span><span class="fu">c</span>(<span class="fl">0.01</span>,<span class="fl">0.05</span>), </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">insig=</span><span class="st">'label_sig'</span>, <span class="at">pch.col=</span><span class="st">'black'</span>, <span class="at">pch.cex=</span><span class="fl">0.7</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">method=</span><span class="fu">c</span>(<span class="st">"circle"</span>), <span class="at">tl.cex=</span><span class="fl">0.5</span>, <span class="at">order=</span><span class="st">"AOE"</span>, <span class="at">type=</span><span class="st">"lower"</span>, <span class="at">diag =</span> F)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"Infant Fecal Microbiome Correlation with AOE Cluster (6 mo avg)"</span>, <span class="at">line =</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 
 
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-date-sort="1738224000000" data-listing-file-modified-sort="1738271975833" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="645">
-<div class="thumbnail">
-<p><a href="./posts/2025-01-30 assignment 3/index.html" class="no-external"></a></p><a href="./posts/2025-01-30 assignment 3/index.html" class="no-external">
-<p class="card-img-top"><img src="posts\2025-01-30 assignment 3\index_files\figure-html\unnamed-chunk-5-1.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/2025-01-30 assignment 3/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/2025-01-30 assignment 3/index.html" class="no-external">BCB 520 Assignment 3</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/2025-01-30 assignment 3/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/2025-01-30 assignment 3/index.html" class="no-external">Herein lies BCB 520 assignment 3, which contains an infant fecal microbiome correlation plot.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/2025-01-30 assignment 3/index.html" class="no-external">
-<div class="listing-date">
-Jan 30, 2025
-</div>
-<div class="listing-author">
-Sharon
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-listing-date-sort="1737792000000" data-listing-file-modified-sort="1738271958382" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="631">
-<div class="thumbnail">
-<p><a href="./posts/post-with-code/index.html" class="no-external"></a></p><a href="./posts/post-with-code/index.html" class="no-external">
-<p class="card-img-top"><img src="posts\post-with-code\index_files\figure-html\unnamed-chunk-8-1.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/post-with-code/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/post-with-code/index.html" class="no-external">BCB 520 Assignment 2</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/post-with-code/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/post-with-code/index.html" class="no-external">Herein lies BCB 520 assignment 2, where I describe some fecal microbiome data.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/post-with-code/index.html" class="no-external">
-<div class="listing-date">
-Jan 25, 2025
-</div>
-<div class="listing-author">
-Sharon
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="news" data-listing-date-sort="1737792000000" data-listing-file-modified-sort="1738094603394" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="17">
-<div class="thumbnail">
-<p><a href="./posts/welcome/index.html" class="no-external"></a></p><a href="./posts/welcome/index.html" class="no-external">
-<p class="card-img-top"><img src="posts\welcome\DMLwZCcWy25RhSYoszqsjN.jpg"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/welcome/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/welcome/index.html" class="no-external">Welcome To My Blog</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/welcome/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('news'); return false;">
-news
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/welcome/index.html" class="no-external">This is my first post in a Quarto blog.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/welcome/index.html" class="no-external">
-<div class="listing-date">
-Jan 25, 2025
-</div>
-<div class="listing-author">
-Sharon
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
