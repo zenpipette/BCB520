@@ -1,12 +1,12 @@
 ---
-title: "BCB 520 Assignment"
+title: "BCB 520 Assignment 2"
 author: "Sharon"
 format: html
 ---
 
 # My Dataset
 
-Herein lies a BCB 520 assignment, where I describe some lovely fecal microbiome data.
+Herein lies BCB 520 assignment 2, where I describe some fecal microbiome data.
 
 I have chosen an infant fecal microbiome relative abundance dataset. This data contains the top 30 most abundant bacterial genera, from 21 infants, averaged over 9 collection timepoints. The read counts are expressed as a percentage of the total read counts (relative abundance). The name of this file is IF_top30.rds.
 
