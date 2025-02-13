@@ -78,9 +78,9 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-date','listing-title','listing-author','listing-subtitle','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
+      searchColumns: ["listing-date","listing-title","listing-author","listing-subtitle","listing-image","listing-description","listing-categories"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -150,7 +150,7 @@ window.Quarto = {
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
     <a class="nav-link" href="./about.html"> 
-<span class="menu-text">about</span></a>
+<span class="menu-text">Sharon</span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/"> <i class="bi bi-github" role="img">
@@ -191,7 +191,7 @@ window.Quarto = {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(3)</span></div><div class="category" data-category="news">news <span class="quarto-category-count">(1)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(4)</span></div><div class="category" data-category="Assignment">Assignment <span class="quarto-category-count">(1)</span></div><div class="category" data-category="DataViz">DataViz <span class="quarto-category-count">(1)</span></div><div class="category" data-category="news">news <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
 <main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
 
@@ -205,7 +205,43 @@ window.Quarto = {
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-date-sort="1738224000000" data-listing-file-modified-sort="1738271975833" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="645">
+<div class="quarto-post image-right" data-index="0" data-categories="Assignment,DataViz" data-listing-date-sort="1739433600000" data-listing-file-modified-sort="1739480213943" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="371">
+<div class="thumbnail">
+<p><a href="./posts/MarksChannels/index.html" class="no-external"></a></p><a href="./posts/MarksChannels/index.html" class="no-external">
+<p><img src="./posts/MarksChannels/Dwight.jpg" class="thumbnail-image"></p>
+</a><p><a href="./posts/MarksChannels/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./posts/MarksChannels/index.html" class="no-external">Assignment 4</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./posts/MarksChannels/index.html" class="no-external">Marks and Channels</a>
+</div>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('Assignment'); return false;">
+Assignment
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('DataViz'); return false;">
+DataViz
+</div>
+</div>
+<div class="listing-description">
+<a href="./posts/MarksChannels/index.html" class="no-external">Some good and some bad plots.</a>
+</div>
+</div>
+<div class="metadata">
+<a href="./posts/MarksChannels/index.html" class="no-external">
+<div class="listing-date">
+Feb 13, 2025
+</div>
+<div class="listing-author">
+Sharon
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-listing-date-sort="1738224000000" data-listing-file-modified-sort="1738271975833" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="645">
 <div class="thumbnail">
 <p><a href="./posts/2025-01-30 assignment 3/index.html" class="no-external"></a></p><a href="./posts/2025-01-30 assignment 3/index.html" class="no-external">
 <p class="card-img-top"><img src="posts\2025-01-30 assignment 3\index_files\figure-html\unnamed-chunk-5-1.png"  class="thumbnail-image card-img"/></p>
@@ -233,7 +269,7 @@ Sharon
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-listing-date-sort="1737792000000" data-listing-file-modified-sort="1738271958382" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="631">
+<div class="quarto-post image-right" data-index="2" data-listing-date-sort="1737792000000" data-listing-file-modified-sort="1738271958382" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="631">
 <div class="thumbnail">
 <p><a href="./posts/post-with-code/index.html" class="no-external"></a></p><a href="./posts/post-with-code/index.html" class="no-external">
 <p class="card-img-top"><img src="posts\post-with-code\index_files\figure-html\unnamed-chunk-8-1.png"  class="thumbnail-image card-img"/></p>
@@ -261,7 +297,7 @@ Sharon
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="2" data-categories="news" data-listing-date-sort="1737792000000" data-listing-file-modified-sort="1738094603394" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="17">
+<div class="quarto-post image-right" data-index="3" data-categories="news" data-listing-date-sort="1737792000000" data-listing-file-modified-sort="1738094603394" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="17">
 <div class="thumbnail">
 <p><a href="./posts/welcome/index.html" class="no-external"></a></p><a href="./posts/welcome/index.html" class="no-external">
 <p class="card-img-top"><img src="posts\welcome\DMLwZCcWy25RhSYoszqsjN.jpg"  class="thumbnail-image card-img"/></p>

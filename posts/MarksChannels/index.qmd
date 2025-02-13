@@ -1,0 +1,143 @@
+---
+title: "Assignment 4"
+subtitle: "Marks and Channels"
+author: "Sharon"
+date: "2025-02-13"
+format: html
+categories: [Assignment, DataViz]
+image: Dwight.jpg
+code-fold: true
+code-tools: true
+descrption: "fecal data gone wrong"
+---
+
+# Assignment 4
+
+Some good and some bad plots.
+
+# Packages
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(Hmisc)
+library(corrplot)
+```
+
+
+# Load RDS objects
+
+```{r}
+IF_top30 <- readRDS("IF_top30.rds")
+IF_top30[1:12,1:4] -> IF_top30
+IF_top30
+```
+
+# Modify the data table
+
+```{r}
+IF_top30 <- IF_top30 |> rownames_to_column(var="Subject")
+```
+
+```{r}
+IF_top30 |> pivot_longer(
+  cols=-Subject,
+  names_to="Bacteria",
+  values_to="Abundance") -> IF_top30
+```
+
+# Expressiveness and Effectiveness
+
+## Figure 1
+
+4 different color hues effectively separate the type of bacterial genera.
+
+The length of the bar clearly shows the relative amounts of each genera.
+
+```{r}
+g1 <- ggplot(IF_top30, aes(x= Subject, y= Abundance, fill=Bacteria)) +
+  geom_bar(stat="identity") +
+  labs(title="Figure 1: Top 4 baby poop bacterial genera in 12 healthy infants",
+       x="Subject",
+       y="Relative Abundance")+
+  theme_bw()
+
+g1
+```
+## Figure 2
+
+```{r}
+Infant_Fecal_Relabund <- readRDS("Infant_Fecal_Relabund.rds")
+
+Infant_Fecal_Relabund <- Infant_Fecal_Relabund |> rownames_to_column(var="Subject")
+```
+
+```{r}
+Infant_Fecal_Relabund[1:8,1:30] -> Infant_Fecal_Relabund
+```
+
+```{r}
+Infant_Fecal_Relabund |> pivot_longer(
+  cols=-Subject,
+  names_to="Bacteria",
+  values_to="Abundance") -> Infant_Fecal_Relabund
+```
+
+Figure 2 contains a lot more data, but many of these bacterial relative abundances are zero and the tallest line is the Unclassified genera. 
+
+"The importance of the attribute should match the salience of the channel"- in this case the large unclassified block and the inclusion of far too many genera impact the effectiveness of this plot.
+
+```{r}
+g2 <- ggplot(Infant_Fecal_Relabund, aes(x= Subject, y= Abundance, fill=Bacteria)) +
+  geom_bar(stat="identity") +
+  labs(title="Figure 2: Baby poop bacterial genera across time for one subject",
+       x="Subject",
+       y="Relative Abundance")+
+  theme_bw()
+
+g2
+```
+# Separability
+
+## Figure 5
+
+I think we can clearly distinguish both stronger and weaker correlations, and also the direction of correlation. 
+
+```{r}
+IF_top30_fresh <- readRDS("IF_top30.rds")
+IF_IF_rcorr <- rcorr(as.matrix(IF_top30_fresh[1:20,1:20]), type=c("spearman"))
+```
+
+```{r}
+corrplot(IF_IF_rcorr$r, p.mat=IF_IF_rcorr$P, sig.level=c(0.01,0.05), 
+         insig='label_sig', pch.col='black', pch.cex=0.7,
+         method=c("circle"), tl.cex=0.5, order="AOE", type="lower", diag = F)
+mtext("Infant Fecal Microbiome Correlation with AOE Cluster (6 mo avg)", line =3)
+```
+
+## Figure 6
+
+I think that the little triangles of light blue and light orange cannot be distinguished. This plot also contains redundant data (upper and lower triangle) which makes it hard to know what is actually important.
+
+```{r}
+IF_IF_rcorr2 <- rcorr(as.matrix(IF_top30_fresh[1:20,1:20]), type=c("spearman"))
+
+corrplot(IF_IF_rcorr2$r, pch.col='black', pch.cex=0.7,
+         method=c("pie"), tl.cex=0.5)
+mtext("Figure 6 - messy shapes that can barely be distinguished", line =3)
+```
+## Extra
+
+I think the ellipses are terrible.
+
+```{r}
+corrplot(IF_IF_rcorr2$r, pch.col='black', pch.cex=0.7,
+         method=c("ellipse"), tl.cex=0.5)
+mtext("Extra: ellipses", line =3)
+```
+
+

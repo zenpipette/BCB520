@@ -7,6 +7,83 @@
     "text": "This is my first post in a Quarto blog.\nThe world is my oyster.\nNext stop: the moon."
   },
   {
+    "objectID": "posts/MarksChannels/index.html",
+    "href": "posts/MarksChannels/index.html",
+    "title": "Assignment 4",
+    "section": "",
+    "text": "Some good and some bad plots."
+  },
+  {
+    "objectID": "posts/MarksChannels/index.html#figure-1",
+    "href": "posts/MarksChannels/index.html#figure-1",
+    "title": "Assignment 4",
+    "section": "Figure 1",
+    "text": "Figure 1\n4 different color hues effectively separate the type of bacterial genera.\nThe length of the bar clearly shows the relative amounts of each genera.\n\n\nCode\ng1 &lt;- ggplot(IF_top30, aes(x= Subject, y= Abundance, fill=Bacteria)) +\n  geom_bar(stat=\"identity\") +\n  labs(title=\"Figure 1: Top 4 baby poop bacterial genera in 12 healthy infants\",\n       x=\"Subject\",\n       y=\"Relative Abundance\")+\n  theme_bw()\n\ng1"
+  },
+  {
+    "objectID": "posts/MarksChannels/index.html#figure-2",
+    "href": "posts/MarksChannels/index.html#figure-2",
+    "title": "Assignment 4",
+    "section": "Figure 2",
+    "text": "Figure 2\n\n\nCode\nInfant_Fecal_Relabund &lt;- readRDS(\"Infant_Fecal_Relabund.rds\")\n\nInfant_Fecal_Relabund &lt;- Infant_Fecal_Relabund |&gt; rownames_to_column(var=\"Subject\")\n\n\n\n\nCode\nInfant_Fecal_Relabund[1:8,1:30] -&gt; Infant_Fecal_Relabund\n\n\n\n\nCode\nInfant_Fecal_Relabund |&gt; pivot_longer(\n  cols=-Subject,\n  names_to=\"Bacteria\",\n  values_to=\"Abundance\") -&gt; Infant_Fecal_Relabund\n\n\nFigure 2 contains a lot more data, but many of these bacterial relative abundances are zero and the tallest line is the Unclassified genera.\n“The importance of the attribute should match the salience of the channel”- in this case the large unclassified block and the inclusion of far too many genera impact the effectiveness of this plot.\n\n\nCode\ng2 &lt;- ggplot(Infant_Fecal_Relabund, aes(x= Subject, y= Abundance, fill=Bacteria)) +\n  geom_bar(stat=\"identity\") +\n  labs(title=\"Figure 2: Baby poop bacterial genera across time for one subject\",\n       x=\"Subject\",\n       y=\"Relative Abundance\")+\n  theme_bw()\n\ng2"
+  },
+  {
+    "objectID": "posts/MarksChannels/index.html#figure-5",
+    "href": "posts/MarksChannels/index.html#figure-5",
+    "title": "Assignment 4",
+    "section": "Figure 5",
+    "text": "Figure 5\nI think we can clearly distinguish both stronger and weaker correlations, and also the direction of correlation.\n\n\nCode\nIF_top30_fresh &lt;- readRDS(\"IF_top30.rds\")\nIF_IF_rcorr &lt;- rcorr(as.matrix(IF_top30_fresh[1:20,1:20]), type=c(\"spearman\"))\n\n\n\n\nCode\ncorrplot(IF_IF_rcorr$r, p.mat=IF_IF_rcorr$P, sig.level=c(0.01,0.05), \n         insig='label_sig', pch.col='black', pch.cex=0.7,\n         method=c(\"circle\"), tl.cex=0.5, order=\"AOE\", type=\"lower\", diag = F)\nmtext(\"Infant Fecal Microbiome Correlation with AOE Cluster (6 mo avg)\", line =3)"
+  },
+  {
+    "objectID": "posts/MarksChannels/index.html#figure-6",
+    "href": "posts/MarksChannels/index.html#figure-6",
+    "title": "Assignment 4",
+    "section": "Figure 6",
+    "text": "Figure 6\nI think that the little triangles of light blue and light orange cannot be distinguished. This plot also contains redundant data (upper and lower triangle) which makes it hard to know what is actually important.\n\n\nCode\nIF_IF_rcorr2 &lt;- rcorr(as.matrix(IF_top30_fresh[1:20,1:20]), type=c(\"spearman\"))\n\ncorrplot(IF_IF_rcorr2$r, pch.col='black', pch.cex=0.7,\n         method=c(\"pie\"), tl.cex=0.5)\nmtext(\"Figure 6 - messy shapes that can barely be distinguished\", line =3)"
+  },
+  {
+    "objectID": "posts/MarksChannels/index.html#extra",
+    "href": "posts/MarksChannels/index.html#extra",
+    "title": "Assignment 4",
+    "section": "Extra",
+    "text": "Extra\nI think the ellipses are terrible.\n\n\nCode\ncorrplot(IF_IF_rcorr2$r, pch.col='black', pch.cex=0.7,\n         method=c(\"ellipse\"), tl.cex=0.5)\nmtext(\"Extra: ellipses\", line =3)"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "BCB520Portfolio",
+    "section": "",
+    "text": "Assignment 4\n\n\nMarks and Channels\n\n\n\nAssignment\n\n\nDataViz\n\n\n\n\n\n\n\n\n\nFeb 13, 2025\n\n\nSharon\n\n\n\n\n\n\n\n\n\n\n\n\nBCB 520 Assignment 3\n\n\n\n\n\n\n\n\n\n\n\nJan 30, 2025\n\n\nSharon\n\n\n\n\n\n\n\n\n\n\n\n\nBCB 520 Assignment 2\n\n\n\n\n\n\n\n\n\n\n\nJan 25, 2025\n\n\nSharon\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nJan 25, 2025\n\n\nSharon\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "Sharon",
+    "section": "",
+    "text": "Sharon is a graduate student who wants to do lots of things including microbiome data analysis, machine learning, and laboratory robotics."
+  },
+  {
+    "objectID": "about.html#experience",
+    "href": "about.html#experience",
+    "title": "Sharon",
+    "section": "Experience",
+    "text": "Experience\n2017-2024 | Alturas Analytics, Inc. Senior Scientist/Principal Investigator for the LC-MS/MS bioanalytical phase of pharmaceutical preclinical and clinical trials\n2012-2017 | Alturas Analytics, Inc. developing and and validating LC-MS/MS assays to support the pharmaceutical industry\n2011, 2012 | BP Exploration Alaska: 12-week summer process engineering internships"
+  },
+  {
+    "objectID": "about.html#education",
+    "href": "about.html#education",
+    "title": "Sharon",
+    "section": "Education",
+    "text": "Education\n2008-2012 | B.S. in Chemical Engineering from Washington State University"
+  },
+  {
+    "objectID": "about.html#interests",
+    "href": "about.html#interests",
+    "title": "Sharon",
+    "section": "Interests",
+    "text": "Interests\nMountains"
+  },
+  {
     "objectID": "posts/2025-01-30 assignment 3/index.html",
     "href": "posts/2025-01-30 assignment 3/index.html",
     "title": "BCB 520 Assignment 3",
@@ -19,20 +96,6 @@
     "title": "BCB 520 Assignment 3",
     "section": "Correlation plot",
     "text": "Correlation plot\nBelow is a raw plot. Note the dark diagonal line that corresponds to correlation 1. This represents something compared to itself (like Bacteriodes to Bacteriodes mentioned above).\nEach circle represents the direction and magnitude of the correlation as described by the legend on the left. Strong correlations are indicated with a large, dark circle. Blue means positive correlation, red means negative correlation.\nBut wait- I have a better one below. I felt that this plot may be useful to understand what rcorr is doing before I trim it down to what is actually interesting (to me).\n\ncorrplot(IF_IF_rcorr$r, pch.col='black', pch.cex=0.7,\n         method=c(\"circle\"), tl.cex=0.5)\nmtext(\"Infant Fecal Microbiome Correlation- Basic\", line =3)\n\n\n\n\n\n\n\n\nNow in order to improve the usefulness of the graphic, I have done several things:\nRemove the upper triangle. You may notice that the upper and lower triangles are mirror images, so this is just redundant data.\nRemove the 1-1 correlations (the dark blue diaganol). The fact that something is 1-1 correlated with itself is not useful or interesting.\nFlag significant p values, because it would be nice to know which correlations are actually statistically significant. One star represents a “trend” (p &lt; 0.05) and two stars indicate a significant correlation (P &lt; 0.01). [Don’t people usually say p &lt; 0.05 is significant? Yes, but this is exploratory data, and we just wanted a rough way to correct for false discovery rate. Don’t get me started on p value adjustments for correlation matrices. It’s a living nightmare.]\nI have also clustered the correlations with similar direction and magnitude using “Angular order of the Eigenvectors” (AOE). Basically that groups dots with similar colors and sizes together. There are other clustering methods, but I don’t understand them well enough to know which is the best."
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "about",
-    "section": "",
-    "text": "I am interested in bioinformatics. I also like long walks on the beach."
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "BCB520Portfolio",
-    "section": "",
-    "text": "BCB 520 Assignment 3\n\n\n\n\n\n\n\n\n\n\n\nJan 30, 2025\n\n\nSharon\n\n\n\n\n\n\n\n\n\n\n\n\nBCB 520 Assignment 2\n\n\n\n\n\n\n\n\n\n\n\nJan 25, 2025\n\n\nSharon\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nJan 25, 2025\n\n\nSharon\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/post-with-code/index.html",
