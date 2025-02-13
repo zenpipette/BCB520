@@ -1,16 +1,33 @@
 ---
-title: "about"
-image: profile.jpg
+title: "Sharon"
+image: minion.jpg
 about:
   template: jolla
+  image-shape: rectangle
   links:
     - icon: linkedin
       text: LinkedIn
       href: https://linkedin.com
     - icon: github
       text: Github
-      href: https://github.com
+      href: https://github.com/zenpipette
 
 ---
 
-I am interested in bioinformatics. I also like long walks on the beach.
+Sharon is a graduate student who wants to do lots of things including microbiome data analysis, machine learning, and laboratory robotics. 
+
+## Experience
+
+2017-2024 | Alturas Analytics, Inc. Senior Scientist/Principal Investigator for the LC-MS/MS bioanalytical phase of pharmaceutical preclinical and clinical trials
+
+2012-2017 | Alturas Analytics, Inc.  developing and  and validating LC-MS/MS assays to support the pharmaceutical industry
+
+2011, 2012 | BP Exploration Alaska: 12-week summer process engineering internships
+
+## Education
+
+2008-2012 | B.S. in Chemical Engineering from Washington State University
+
+## Interests
+
+Mountains
