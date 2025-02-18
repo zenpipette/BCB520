@@ -14,7 +14,9 @@ about:
 
 ---
 
-I am interested in studying human milk as a biological system. This includes complex microbiome analysis and machine learning models.  
+This is my BCB520 portfolio.
+
+This is a little bit about me:
 
 ## Experience
 
