@@ -14,13 +14,13 @@ about:
 
 ---
 
-Sharon is a graduate student who wants to do lots of things including microbiome data analysis, machine learning, and laboratory robotics. 
+I am interested in studying human milk as a biological system. This includes complex microbiome analysis and machine learning models.  
 
 ## Experience
 
 2017-2024 | Alturas Analytics, Inc. Senior Scientist/Principal Investigator for the LC-MS/MS bioanalytical phase of pharmaceutical preclinical and clinical trials
 
-2012-2017 | Alturas Analytics, Inc.  developing and  and validating LC-MS/MS assays to support the pharmaceutical industry
+2012-2017 | Alturas Analytics, Inc.  Associate Scientist/Scientist: developing and  and validating LC-MS/MS assays to support the pharmaceutical industry
 
 2011, 2012 | BP Exploration Alaska: 12-week summer process engineering internships
 
@@ -30,4 +30,4 @@ Sharon is a graduate student who wants to do lots of things including microbiome
 
 ## Interests
 
-Mountains
+Mountains: climbing them, looking at them.
