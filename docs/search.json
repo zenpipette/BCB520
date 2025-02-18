@@ -25,7 +25,21 @@
     "href": "posts/MarksChannels/index.html#figure-2",
     "title": "Assignment 4",
     "section": "Figure 2",
-    "text": "Figure 2\n\n\nCode\nInfant_Fecal_Relabund &lt;- readRDS(\"Infant_Fecal_Relabund.rds\")\n\nInfant_Fecal_Relabund &lt;- Infant_Fecal_Relabund |&gt; rownames_to_column(var=\"Subject\")\n\n\n\n\nCode\nInfant_Fecal_Relabund[1:8,1:30] -&gt; Infant_Fecal_Relabund\n\n\n\n\nCode\nInfant_Fecal_Relabund |&gt; pivot_longer(\n  cols=-Subject,\n  names_to=\"Bacteria\",\n  values_to=\"Abundance\") -&gt; Infant_Fecal_Relabund\n\n\nFigure 2 contains a lot more data, but many of these bacterial relative abundances are zero and the tallest line is the Unclassified genera.\n“The importance of the attribute should match the salience of the channel”- in this case the large unclassified block and the inclusion of far too many genera impact the effectiveness of this plot.\n\n\nCode\ng2 &lt;- ggplot(Infant_Fecal_Relabund, aes(x= Subject, y= Abundance, fill=Bacteria)) +\n  geom_bar(stat=\"identity\") +\n  labs(title=\"Figure 2: Baby poop bacterial genera across time for one subject\",\n       x=\"Subject\",\n       y=\"Relative Abundance\")+\n  theme_bw()\n\ng2"
+    "text": "Figure 2\n\n\nCode\nIF_top30_2 &lt;- readRDS(\"IF_top30.rds\")\n\nIF_top30_2 &lt;- IF_top30_2 |&gt; rownames_to_column(var=\"Subject\")\n\n\n\n\nCode\nIF_top30_2 |&gt; pivot_longer(\n  cols=-Subject,\n  names_to=\"Bacteria\",\n  values_to=\"Abundance\") -&gt; IF_top30_2\n\n\nFigure 2 contains a lot more data, but many of these bacterial relative abundances are zero and the tallest line is the Unclassified genera.\n“The importance of the attribute should match the salience of the channel”- in this case the large unclassified block and the inclusion of far too many genera impact the effectiveness of this plot.\n\n\nCode\ng2 &lt;- ggplot(IF_top30_2, aes(x= Subject, y= Abundance, fill=Bacteria)) +\n  geom_bar(stat=\"identity\") +\n  labs(title=\"Figure 2: Baby poop bacterial genera\",\n       x=\"Subject\",\n       y=\"Relative Abundance\")+\n  theme_bw()\n\ng2"
+  },
+  {
+    "objectID": "posts/MarksChannels/index.html#figure-3",
+    "href": "posts/MarksChannels/index.html#figure-3",
+    "title": "Assignment 4",
+    "section": "Figure 3",
+    "text": "Figure 3\n\n\nCode\nFA_relabund &lt;- readRDS(\"FA_relabund_avg_no_overlap.rds\")\nFA_relabund |&gt; rownames_to_column(var=\"Subject\") -&gt; FA_relabund\n\n\n\n\nCode\nFA_relabund_bysat &lt;- readRDS(\"FA_bysaturation.rds\")\n\nsub1_sat_FA &lt;- FA_relabund_bysat |&gt; filter(Participant==\"A003\") |&gt;\n  pivot_longer(cols=-Participant, names_to = \"Fatty_acid\", values_to = \"Abundance\")\n\nsub1_sat_FA &lt;- sub1_sat_FA |&gt; mutate(label=paste0(round(Abundance,1),\"%\"))\n\n\n\n\nCode\n#pie chart\n\nsub1_bysat_pie &lt;- ggplot(sub1_sat_FA, aes(x=\"\",y=Abundance, fill=Fatty_acid))+\n  geom_bar(stat=\"identity\", width=1)+\n  coord_polar(\"y\", start=0)+\n  geom_text(aes(label=label), size=3, position=position_stack(vjust=0.5),\n            check_overlap = T)+\n  theme_void()+\n  labs(title=\"Fatty Acid Composition by Saturation Level for Subject 1\",\n       fill=\"Fatty Acid\")+\n  theme(legend.position=\"right\")\n\nsub1_bysat_pie"
+  },
+  {
+    "objectID": "posts/MarksChannels/index.html#figure-4",
+    "href": "posts/MarksChannels/index.html#figure-4",
+    "title": "Assignment 4",
+    "section": "Figure 4",
+    "text": "Figure 4\n\n\nCode\nsub1_FA &lt;- FA_relabund |&gt; \n  filter(Subject==\"A003\") |&gt;\n  pivot_longer(cols=-Subject, names_to=\"Fatty_acid\", values_to = \"Abundance\") |&gt;\n  mutate(label=paste0(round(Abundance,3),\"%\")) |&gt;\n  arrange(desc(Abundance)) |&gt;\n  mutate(Fatty_acid = factor(Fatty_acid, levels=Fatty_acid))\n\n\n\n\nCode\n#pie chart\n\nsub1_pie &lt;- ggplot(sub1_FA, aes(x=\"\",y=Abundance, fill=Fatty_acid))+\n  geom_bar(stat=\"identity\", width=1)+\n  coord_polar(\"y\", start=0)+\n  geom_text(\n    aes(label=label),\n    position=position_stack(vjust=0.5),\n    check_overlap = T,\n    size=3\n  )+\n  scale_fill_viridis_d(option=\"H\")+\n  theme_void()+\n  labs(title=\"Fatty Acid Composition by individual fatty acid for Subject 1\",\n       fill=\"Fatty Acid\")+\n  theme(legend.position=\"right\")\n\nsub1_pie"
   },
   {
     "objectID": "posts/MarksChannels/index.html#figure-5",

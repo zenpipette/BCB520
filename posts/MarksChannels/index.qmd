@@ -26,6 +26,7 @@ library(tidyverse)
 library(ggplot2)
 library(Hmisc)
 library(corrplot)
+library(ggrepel)
 ```
 
 
@@ -34,7 +35,6 @@ library(corrplot)
 ```{r}
 IF_top30 <- readRDS("IF_top30.rds")
 IF_top30[1:12,1:4] -> IF_top30
-IF_top30
 ```
 
 # Modify the data table
@@ -71,20 +71,16 @@ g1
 ## Figure 2
 
 ```{r}
-Infant_Fecal_Relabund <- readRDS("Infant_Fecal_Relabund.rds")
+IF_top30_2 <- readRDS("IF_top30.rds")
 
-Infant_Fecal_Relabund <- Infant_Fecal_Relabund |> rownames_to_column(var="Subject")
+IF_top30_2 <- IF_top30_2 |> rownames_to_column(var="Subject")
 ```
 
 ```{r}
-Infant_Fecal_Relabund[1:8,1:30] -> Infant_Fecal_Relabund
-```
-
-```{r}
-Infant_Fecal_Relabund |> pivot_longer(
+IF_top30_2 |> pivot_longer(
   cols=-Subject,
   names_to="Bacteria",
-  values_to="Abundance") -> Infant_Fecal_Relabund
+  values_to="Abundance") -> IF_top30_2
 ```
 
 Figure 2 contains a lot more data, but many of these bacterial relative abundances are zero and the tallest line is the Unclassified genera. 
@@ -92,14 +88,82 @@ Figure 2 contains a lot more data, but many of these bacterial relative abundanc
 "The importance of the attribute should match the salience of the channel"- in this case the large unclassified block and the inclusion of far too many genera impact the effectiveness of this plot.
 
 ```{r}
-g2 <- ggplot(Infant_Fecal_Relabund, aes(x= Subject, y= Abundance, fill=Bacteria)) +
+g2 <- ggplot(IF_top30_2, aes(x= Subject, y= Abundance, fill=Bacteria)) +
   geom_bar(stat="identity") +
-  labs(title="Figure 2: Baby poop bacterial genera across time for one subject",
+  labs(title="Figure 2: Baby poop bacterial genera",
        x="Subject",
        y="Relative Abundance")+
   theme_bw()
 
 g2
+```
+
+# Discriminability
+
+## Figure 3
+
+```{r}
+FA_relabund <- readRDS("FA_relabund_avg_no_overlap.rds")
+FA_relabund |> rownames_to_column(var="Subject") -> FA_relabund
+```
+
+```{r}
+FA_relabund_bysat <- readRDS("FA_bysaturation.rds")
+
+sub1_sat_FA <- FA_relabund_bysat |> filter(Participant=="A003") |>
+  pivot_longer(cols=-Participant, names_to = "Fatty_acid", values_to = "Abundance")
+
+sub1_sat_FA <- sub1_sat_FA |> mutate(label=paste0(round(Abundance,1),"%"))
+```
+
+```{r}
+#pie chart
+
+sub1_bysat_pie <- ggplot(sub1_sat_FA, aes(x="",y=Abundance, fill=Fatty_acid))+
+  geom_bar(stat="identity", width=1)+
+  coord_polar("y", start=0)+
+  geom_text(aes(label=label), size=3, position=position_stack(vjust=0.5),
+            check_overlap = T)+
+  theme_void()+
+  labs(title="Fatty Acid Composition by Saturation Level for Subject 1",
+       fill="Fatty Acid")+
+  theme(legend.position="right")
+
+sub1_bysat_pie
+
+```
+
+
+## Figure 4
+
+```{r}
+sub1_FA <- FA_relabund |> 
+  filter(Subject=="A003") |>
+  pivot_longer(cols=-Subject, names_to="Fatty_acid", values_to = "Abundance") |>
+  mutate(label=paste0(round(Abundance,3),"%")) |>
+  arrange(desc(Abundance)) |>
+  mutate(Fatty_acid = factor(Fatty_acid, levels=Fatty_acid))
+```
+```{r}
+#pie chart
+
+sub1_pie <- ggplot(sub1_FA, aes(x="",y=Abundance, fill=Fatty_acid))+
+  geom_bar(stat="identity", width=1)+
+  coord_polar("y", start=0)+
+  geom_text(
+    aes(label=label),
+    position=position_stack(vjust=0.5),
+    check_overlap = T,
+    size=3
+  )+
+  scale_fill_viridis_d(option="H")+
+  theme_void()+
+  labs(title="Fatty Acid Composition by individual fatty acid for Subject 1",
+       fill="Fatty Acid")+
+  theme(legend.position="right")
+
+sub1_pie
+
 ```
 # Separability
 
