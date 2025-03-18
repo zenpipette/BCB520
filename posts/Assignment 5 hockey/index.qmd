@@ -2,7 +2,7 @@
 title: "Assignment 5"
 subtitle: "Hockey stuff"
 author: "Sharon"
-date: "2025-03-06"
+date: "2025-03-18"
 format: html
 categories: [Assignment, DataViz]
 image: kidhockey.jpg
@@ -13,42 +13,13 @@ descrption: "Hockey data stuff"
 
 # OVERVIEW
 
-In this assignment, we are going to practice creating visualizations for tabular data. 
+Here are my selections for the hockey trophies listed and described below in each section.
 
-# SCENARIO
+For each award, I have created a ballot of five players, ranked from 1 (first choice) to 5 (fifth choice).  For each ballot, I have provided one to three visualizations that explain and justify the ballot.
 
-We are going to use NHL data on the season to date to create data driven ballots for several key awards.  The awards we will consider are:
+# THE DATA
 
-## Hart Memorial Trophy
-Awarded to the "player judged most valuable to his team." This isn't necessarily the best overall player, but rather the one who contributes most significantly to his team's success.
-
-## Vezina Trophy
-Presented to the goaltender "adjudged to be the best at this position." NHL general managers vote on this award.
-
-## James Norris Memorial Trophy
-Awarded to the defenseman who demonstrates "the greatest all-around ability" at the position.
-
-## Calder Memorial Trophy
-Given to the player "adjudged to be the most proficient in his first year of competition." This is essentially the rookie of the year award.
-
-## Frank J. Selke Trophy
-Awarded to the forward who best excels in the defensive aspects of the game.
-
-## Lady Byng Memorial Trophy
-Presented to the player who exhibits "the best type of sportsmanship and gentlemanly conduct combined with a high standard of playing ability."
-
-Note that I've eliminated the awards that are determined by raw counting statistics (most goals, most points).  The awards above are all based on votes from NHL media and executives, and the criteria are at least somewhat subjective.
-
-
-
-### Here is the goal:
-
-For each award, create your ballot of five players, ranked from 1 (your first choice) to 5 (your fifth choice).  For each ballot, provide one to three visualizations that explain and justify your ballot.
-
-
-## THE DATA
-
-At minimum, we will use the data from naturalstattrick.com for player statistics for the season to date (Oct 2024 to March 2025).  You can find the Data Dictionary [here](DataDictionary.qmd)
+At minimum, we will use the data from naturalstattrick.com for player statistics for the season to date (Oct 2024 to March 2025).
 
 ```{r include=FALSE}
 library(tidyverse)
@@ -64,103 +35,12 @@ OnIce.Skater.Rookie <- read.csv("RookieSkaterOnIce.csv")
 Rookie.Goalie <- read.csv("RookieGoalies.csv")
 ```
 
-```{r, eval=F}
-view(Individual.Skater)
-view(OnIce.Skater)
-```
-
-
-## Counting Stats for Skaters
-
-```{r}
-
-ggplot(Individual.Skater, aes(x=Total.Points))+
-  geom_histogram(binwidth = 1)+
-  labs(x = "Total Points",
-       y = "Number of Players",
-       caption = "source: https://www.naturalstattrick.com/",
-       title = "Distribution of Total Points",
-       subtitle = "2024-2025 season stats as of March 4")
-
-ggplot(Individual.Skater, aes(x=Goals))+
-  geom_histogram(binwidth = 1)+
-  labs(x = "Goals Scored",
-       y = "Number of Players",
-       caption = "source: https://www.naturalstattrick.com/",
-       title = "Distribution of Goals Scored",
-       subtitle = "2024-2025 season stats as of March 4")
-
-ggplot(Individual.Skater, aes(x=Total.Assists))+
-  geom_histogram(binwidth = 1)+
-  labs(x = "Total Assists",
-       y = "Number of Players",
-       caption = "source: https://www.naturalstattrick.com/",
-       title = "Distribution of Total Assists",
-       subtitle = "2024-2025 season stats as of March 4")
-
-```
-## On Ice Stats for Skaters
-
-```{r}
-
-ggplot(OnIce.Skater, aes(x=CF.))+
-  geom_histogram(binwidth = 1)+
-  labs(x = "Corsi Percentage",
-       y = "Number of Players",
-       caption = "source: https://www.naturalstattrick.com/",
-       title = "Distribution of Corsi Percentage",
-       subtitle = "2024-2025 season stats as of March 4")
-
-ggplot(OnIce.Skater, aes(x=as.numeric(GF.)))+
-  geom_histogram(binwidth = 1)+
-  labs(x = "Goals For Percentage",
-       y = "Number of Players",
-       caption = "source: https://www.naturalstattrick.com/",
-       title = "Distribution of Goals For Percentage",
-       subtitle = "2024-2025 season stats as of March 4")
-
-ggplot(OnIce.Skater, aes(x=as.numeric(xGF.)))+
-  geom_histogram(binwidth = 1)+
-  labs(x = "Expected Goals For Percentage",
-       y = "Number of Players",
-       caption = "source: https://www.naturalstattrick.com/",
-       title = "Distribution of Expected Goals For Percentage",
-       subtitle = "2024-2025 season stats as of March 4")
-
-```
-
-## Stats for Goalies
-
-```{r}
-
-ggplot(Goalie, aes(x=SV.))+
-  geom_histogram(binwidth = .01)+
-  labs(x = "Save Percentage",
-       y = "Number of Players",
-       caption = "source: https://www.naturalstattrick.com/",
-       title = "Distribution of Save Percentage",
-       subtitle = "2024-2025 season stats as of March 4")
-
-ggplot(Goalie, aes(x=GAA))+
-  geom_histogram(binwidth = .2)+
-  labs(x = "Goals Against Average",
-       y = "Number of Players",
-       caption = "source: https://www.naturalstattrick.com/",
-       title = "Distribution of Goals Against Average",
-       subtitle = "2024-2025 season stats as of March 4")
-
-ggplot(Goalie, aes(x=GSAA))+
-  geom_histogram(binwidth = 1)+
-  labs(x = "Goals Saved Above Average",
-       y = "Number of Players",
-       caption = "source: https://www.naturalstattrick.com/",
-       title = "Distribution of Goals Saved Above Average",
-       subtitle = "2024-2025 season stats as of March 4")
-
-```
 
 # Vezina Trophy
+
 Presented to the goaltender "adjudged to be the best at this position." NHL general managers vote on this award.
+
+Maybe we should look at games played versus saves made by the goalie.
 
 
 ```{r goalie_m1}
@@ -188,6 +68,8 @@ ggplot(data=Goalie, aes(x=GP, y=Saves))+
 goalie_m2 <- lm(Saves~Shots.Against, data=Goalie)
 ```
 
+Maybe we should also look at saves versus shots against.
+
 The red line on the graph shows where an approximate cut-off point could be. We want the players above the line.
 
 ```{r Saves made per shots against}
@@ -206,15 +88,9 @@ ggplot(data=Goalie, aes(x=Shots.Against, y=Saves))+
 ```
 ```{r goalie_m3}
 goalie_m3 <- lm(SV.~GP, data=Goalie)
-goalie_m3$coefficients["(Intercept)"]
-goalie_m3$coefficients["GP"]
 ```
 
-```{r}
-plot(goalie_m3)
-```
-
-
+We can also look at percent saved versus games played.
 
 ```{r percent Save per Games Played}
 ggplot(data=Goalie, aes(x=GP, y=SV.))+
@@ -226,13 +102,15 @@ ggplot(data=Goalie, aes(x=GP, y=SV.))+
   labs(x="Games Played",
        y="% Shots against that were saves",
        caption = "source: https://www.naturalstattrick.com/",
-       title="% Saves Made per Games Played",
+       title="% Saves Made Versus Games Played",
        subtitle = "2024-2025 season stats as of March 4")
 
 ```
 
-I want to see who are the top 5 in GP, Saves, and SV.
+I want to see who are the top 5 in GP, Saves, and SV. (percent saves).
+
 Top 5 in GP:
+
 ```{r top 5 in GP}
 Goalie |> select(Player, GP, Shots.Against, Saves, SV.) |>
   arrange(desc(GP)) |>
@@ -244,7 +122,7 @@ Goalie |> select(Player, GP, Shots.Against, Saves, SV.) |>
   arrange(desc(Saves)) |>
   slice_head(n=5)
 ```
-Top 5 in Sv.:
+Top 5 in SV.:
 ```{r top 5 in SV}
 Goalie |> select(Player, GP, Shots.Against, Saves, SV.) |>
   arrange(desc(SV.)) |>
@@ -289,21 +167,24 @@ ggplot(Individual.Skater, aes(x=GP, y=Goals))+
 
 That being said, not just the folks making the goals should be considered. Defense should be considered. One way to assess this might be with the OnIce.Skater data, using the GF statistics (count of goals for that player's team while that player is on the ice).
 
-I'm sorting the top 20 so it can be visualized.
+I'm sorting the top 20 so it's not too busy:
 
 ```{r}
 hartmemorial <- OnIce.Skater |> select(Player, GF, GP) |>
   arrange(desc(GF)) |>
   slice_head(n=20)
-
-hartmemorial
 ```
 
 
 ```{r}
 ggplot(hartmemorial, aes(x=GF, y=reorder(Player, GF)))+
   geom_bar(stat="identity")+
-  theme_bw()
+  theme_bw()+
+  labs(x="GF",
+       y="Players",
+       caption = "source: https://www.naturalstattrick.com/",
+       title="Players with top GF numbers",
+       subtitle = "2024-2025 season stats as of March 4")
 ```
 Now I want to see a scatter plot with names in it.
 
@@ -341,5 +222,254 @@ hartmemorial_ballot
 
 Awarded to the defenseman who demonstrates "the greatest all-around ability" at the position.
 
+I will look at Scoring Chance- SCF, count of scoring chances for that player's team while that player is on the ice. Is that a good measure of defense? Don't know, but here we go.
+
+I will also look at shots blocked.
+
+```{r}
+OnIce.Skater |> select(Player, Team, GP, SCF) |>
+  arrange(desc(SCF)) |>
+  slice_head(n=15) -> top_SCF
+
+top_SCF
+```
+
+```{r}
+Individual.Skater |> select(Player, Team, GP, Shots.Blocked) |>
+  arrange(desc(Shots.Blocked)) |>
+  slice_head(n=15) -> top_shotsblocked
+
+top_shotsblocked
+```
+
+I was curious if the 2 code chunks above would reveal some overlap between top SCF and top shots blocked players. But given the comparison (in the code below) and the FALSE results, there is no overlap:
+
+```{r}
+top_shotsblocked$Player %in% top_SCF$Player
+```
+Therefore I will choose top shots blocked.
+
+I put team in color here. I wondered if we would see clusters by team. But there is nearly no overlap, so it actually looks pretty terrible:
+
+```{r}
+ggplot(data=top_shotsblocked, aes(x=GP, y=Shots.Blocked, color=Team))+
+  geom_point()+
+  theme_bw()+
+  geom_text(aes(label=Player), hjust=0.5, vjust=-0.5, size=2)+
+  labs(title = "20 Contenders for the James Norris Award, with Teams in color",
+       x="Number of games played",
+       y="Shots Blocked",
+       caption = "source: https://www.naturalstattrick.com/",
+       subtitle = "2024-2025 season stats as of March 4")
+```
+
+This is better (no color)
+
+As titled, here are the top 20 contenders for the James Norris Award. Generally, the top right-ish of the graph would be ranked higher on the ballot.
+
+```{r}
+ggplot(data=top_shotsblocked, aes(x=GP, y=Shots.Blocked))+
+  geom_point()+
+  theme_bw()+
+  geom_text(aes(label=Player), hjust=0.5, vjust=-0.5, size=2)+
+  labs(title = "20 Contenders for the James Norris Award",
+       x="Number of games played",
+       y="Shots Blocked",
+       caption = "source: https://www.naturalstattrick.com/",
+       subtitle = "2024-2025 season stats as of March 4")
+```
+
+## James Norris ballot
+
+Here is the James Norris ballot, based on shots blocked:
+
+```{r}
+James_norris_ballot <- top_shotsblocked |> slice_head(n=5) |>
+  mutate(Rank=row_number())
+
+James_norris_ballot
+```
+
+# Calder Memorial Trophy
+
+Given to the player "adjudged to be the most proficient in his first year of competition." This is essentially the rookie of the year award.
+
+```{r}
+Individual.Skater.Rookie |> select(Player, GP, Goals, Shots.Blocked) |>
+  arrange(desc(Goals)) -> caldermemorial
+```
+
+For fun, let's look at Goals versus Shots.Blocked. I am not sure how useful this is. In the end, I am not using shots blocked data.
+
+```{r}
+ggplot(data=caldermemorial, aes(x=Goals, y=Shots.Blocked))+
+  geom_point()+
+  theme_bw()+
+  #geom_text(aes(label=Player), hjust=0.5, vjust=-0.5, size=2)+
+  labs(title = "Shots Blocked versus Goals for Calder Memorial assessment",
+       x="Individual Goals",
+       y="Shots Blocked",
+       caption = "source: https://www.naturalstattrick.com/",
+       subtitle = "2024-2025 season stats as of March 4")
+```
+Now we will take a look at games played and GF (count of goals for that player's team while that player is on the ice).
+
+```{r}
+OnIce.Skater.Rookie|> select(Player, GP, GF) |>
+  arrange(desc(GF)) -> caldermemorial2
+```
+
+Now let's get the top 10 from both of those data sets (the "lots of goals" dataset and the "high GF" dataset) and see who overlaps.
+
+```{r}
+caldermemorial <- caldermemorial |> slice_head(n=10)
+
+caldermemorial2 <- caldermemorial2 |> slice_head(n=10)
+
+calder_overlap <- caldermemorial |>
+  inner_join(caldermemorial2, by="Player") |>
+  select(Player) |>
+  distinct()
+```
+
+Here are the ones that overlap between my two categories:
+
+```{r}
+calder_overlap
+```
+
+## Calder memorial ballot:
+
+Since these have already been sorted above, I'm going to grab the top 5 for my ballot:
+
+```{r}
+calder_overlap |> mutate(Rank=row_number()) |> slice_head(n=5) -> calder_memorial_ballot
+
+calder_memorial_ballot
+```
+
+# Frank J. Selke Trophy
+Awarded to the forward who best excels in the defensive aspects of the game.
+
+In hockey, a forward is a player whose primary role is to score goals and create offensive plays. They can be center, left wing, or right wing. I am going to assume that these correspond to Position C, L, and R.
+
+I don't understand the difference between this and the James Norris trophy, other than I need to sort by Position =C, L, or R. So I will use top shots blocked because that's what I ended up with for the James Norris ballot.
+
+```{r}
+Individual.Skater |> select(Player, Position, GP, Shots.Blocked) |>
+  filter(Position %in% c("C","L","R"))|>
+  arrange(desc(Shots.Blocked)) |>
+  slice_head(n=20) |>
+  mutate(LastName = sub(".*\\s", "", Player)) -> frank_contendors
+```
+
+Now I want to visualize this. I added Position by color, and last name only so that the plot was less busy.
+
+Sadly there is a little "a" under the Position legend that I can't get rid of, and some overlap of names.
+
+```{r}
+ggplot(data=frank_contendors, aes(x=GP, y=Shots.Blocked, color=Position))+
+  geom_point()+
+  theme_bw()+
+  geom_text(aes(label=LastName), hjust=0.5, vjust=-0.5, size=2)+
+  labs(title = "20 Contenders for the Frank J. Selke Trophy",
+       x="Number of games played",
+       y="Shots Blocked",
+       caption = "source: https://www.naturalstattrick.com/",
+       subtitle = "2024-2025 season stats as of March 4")
+```
+In the end, I will use top shots blocked.
+
+## Frank J. Selke Trophy ballot
+
+```{r}
+frank_ballot <- frank_contendors |> slice_head(n=5) |>
+  select(-c("LastName")) |> mutate(Rank=row_number())
+  
+
+frank_ballot
+```
+
+
+# Lady Byng Memorial Trophy
+
+Presented to the player who exhibits "the best type of sportsmanship and gentlemanly conduct combined with a high standard of playing ability."
+
+I guess I could look at total penalties per game and misconduct. I could also consider assists. Maybe players who make lots of assists are helpful sportsmanlike people. 
+
+I'll create a new variable, PIM/GP - penalty minutes per games played. 
+
+```{r}
+ladyb_contenders <- Individual.Skater |> select(Player, GP, Total.Penalties, Misconduct, PIM, Total.Assists) |>
+  mutate(PIM_per_GP=PIM/GP)
+```
+
+
+Let's look at PIM and GP. Maybe the players with lots of games played but low penalty minutes should be considered, which would be clustered around the bottom right of the scatterplot.
+
+```{r}
+ggplot(data=ladyb_contenders, aes(x=GP, y=PIM))+
+  geom_point()+
+  theme_bw()+
+  #geom_text(aes(label=LastName), hjust=0.5, vjust=-0.5, size=2)+
+  labs(title = "Penalty Minutes per games played",
+       x="Number of games played",
+       y="Penalty Minutes (PIM)",
+       caption = "source: https://www.naturalstattrick.com/",
+       subtitle = "2024-2025 season stats as of March 4")
+```
+
+Maybe the players with high assists and low PIM/GP should be considered.
+
+Based on the graph below, I will broadly slash all players who have >1 PIM/GP and < 30 assists so I can narrow things down.
+
+```{r}
+ggplot(data=ladyb_contenders, aes(x=Total.Assists, y=PIM_per_GP))+
+  geom_point()+
+  theme_bw()+
+  #geom_text(aes(label=LastName), hjust=0.5, vjust=-0.5, size=2)+
+  labs(title = "PIM/GP per Total Assists",
+       x="Total Assists",
+       y="Penalty Minutes (PIM)/Games Played",
+       caption = "source: https://www.naturalstattrick.com/",
+       subtitle = "2024-2025 season stats as of March 4")
+```
+
+This narrowing gives me 60 players to sort based on more nuanced criteria:
+
+```{r}
+ladyb_contenders_narrow <- ladyb_contenders |> filter(Total.Assists>30) |>
+  filter(PIM_per_GP<1)
+
+length(ladyb_contenders_narrow$Player)
+```
+Now I will add a layer showing total penalties as dot size.
+
+Based on this information, looks like the best contendors will be in the bottom middle of the graph below, so I will further slash those with < 45 assists and > 0.3 PIM/GP.
+
+Then I will sort that by PIM/GP and chose the 5 with the lowest PIM/GP.
+
+```{r}
+ggplot(data=ladyb_contenders_narrow, aes(x=Total.Assists, y=PIM_per_GP, size=Total.Penalties))+
+  geom_point()+
+  theme_bw()+
+  #geom_text(aes(label=LastName), hjust=0.5, vjust=-0.5, size=2)+
+  labs(title = "PIM/GP per Total Assists + Games Played",
+       x="Total Assists",
+       y="Penalty Minutes (PIM)/Games Played",
+       caption = "source: https://www.naturalstattrick.com/",
+       subtitle = "2024-2025 season stats as of March 4")
+```
+## Lady Byng Memorial Trophy ballot 
+
+```{r}
+ladyb_ballot <- ladyb_contenders_narrow |> filter(Total.Assists>45) |>
+  filter(PIM_per_GP<0.3) |>
+  arrange(PIM_per_GP) |>
+  slice_head(n=5) |>
+  mutate(Rank=row_number())
+
+ladyb_ballot
+```
 
 

@@ -116,7 +116,7 @@
     "href": "posts/Assignment 5 hockey/index.html",
     "title": "Assignment 5",
     "section": "",
-    "text": "Here are my selections for the hockey trophies listed and described below in each section.\nFor each award, I have created a ballot of five players, ranked from 1 (first choice) to 5 (fifth choice). For each ballot, I have provided one to three visualizations that explain and justify your ballot."
+    "text": "Here are my selections for the hockey trophies listed and described below in each section.\nFor each award, I have created a ballot of five players, ranked from 1 (first choice) to 5 (fifth choice). For each ballot, I have provided one to three visualizations that explain and justify the ballot."
   },
   {
     "objectID": "posts/Assignment 5 hockey/index.html#vezina-ballot",
@@ -137,14 +137,14 @@
     "href": "posts/Assignment 5 hockey/index.html#james-norris-ballot",
     "title": "Assignment 5",
     "section": "James Norris ballot",
-    "text": "James Norris ballot\nHere is the James Norris ballot:\n\n\nCode\nJames_norris_ballot &lt;- top_shotsblocked |&gt; slice_head(n=5) |&gt;\n  mutate(Rank=row_number())\n\nJames_norris_ballot\n\n\n            Player     Team GP Shots.Blocked Rank\n1         Ian Cole      UTA 61           160    1\n2     Jacob Trouba ANA, NYR 58           158    2\n3      Chris Tanev      TOR 57           151    3\n4 Rasmus Andersson      CGY 60           147    4\n5      Nick Seeler      PHI 56           142    5"
+    "text": "James Norris ballot\nHere is the James Norris ballot, based on shots blocked:\n\n\nCode\nJames_norris_ballot &lt;- top_shotsblocked |&gt; slice_head(n=5) |&gt;\n  mutate(Rank=row_number())\n\nJames_norris_ballot\n\n\n            Player     Team GP Shots.Blocked Rank\n1         Ian Cole      UTA 61           160    1\n2     Jacob Trouba ANA, NYR 58           158    2\n3      Chris Tanev      TOR 57           151    3\n4 Rasmus Andersson      CGY 60           147    4\n5      Nick Seeler      PHI 56           142    5"
   },
   {
     "objectID": "posts/Assignment 5 hockey/index.html#calder-memorial-ballot",
     "href": "posts/Assignment 5 hockey/index.html#calder-memorial-ballot",
     "title": "Assignment 5",
     "section": "Calder memorial ballot:",
-    "text": "Calder memorial ballot:\nSince these have already been sorted above, I’m going to grab the top 5 for my ballot:\n\n\nCode\ncalder_overlap |&gt; mutate(Rank=row_number()) |&gt; slice_head(n=5) -&gt; calder_memorial_ballot\n\ncalder_memorial_ballot\n\n\n            Player Rank\n1       JJ Peterka    1\n2 Kirill Marchenko    2\n3     Logan Cooley    3\n4      Marco Rossi    4\n5    Matthew Knies    5"
+    "text": "Calder memorial ballot:\nSince these have already been sorted above, I’m going to grab the top 5 for my ballot:\n\n\nCode\ncalder_overlap |&gt; mutate(Rank=row_number()) |&gt; slice_head(n=5) -&gt; calder_memorial_ballot\n\ncalder_memorial_ballot\n\n\n            Player Rank\n1 Kirill Marchenko    1\n2    Matthew Knies    2\n3   Wyatt Johnston    3\n4      Marco Rossi    4\n5       JJ Peterka    5"
   },
   {
     "objectID": "posts/Assignment 5 hockey/index.html#frank-j.-selke-trophy-ballot",
@@ -152,6 +152,13 @@
     "title": "Assignment 5",
     "section": "Frank J. Selke Trophy ballot",
     "text": "Frank J. Selke Trophy ballot\n\n\nCode\nfrank_ballot &lt;- frank_contendors |&gt; slice_head(n=5) |&gt;\n  select(-c(\"LastName\")) |&gt; mutate(Rank=row_number())\n  \n\nfrank_ballot\n\n\n            Player Position GP Shots.Blocked Rank\n1    Brandon Tanev        L 59            91    1\n2        Alex Tuch        R 59            87    2\n3     Noel Acciari        C 63            73    3\n4   Rickard Rakell        R 62            66    4\n5 Vincent Trocheck        C 61            66    5"
+  },
+  {
+    "objectID": "posts/Assignment 5 hockey/index.html#lady-byng-memorial-trophy-ballot",
+    "href": "posts/Assignment 5 hockey/index.html#lady-byng-memorial-trophy-ballot",
+    "title": "Assignment 5",
+    "section": "Lady Byng Memorial Trophy ballot",
+    "text": "Lady Byng Memorial Trophy ballot\n\n\nCode\nladyb_ballot &lt;- ladyb_contenders_narrow |&gt; filter(Total.Assists&gt;45) |&gt;\n  filter(PIM_per_GP&lt;0.3) |&gt;\n  arrange(PIM_per_GP) |&gt;\n  slice_head(n=5) |&gt;\n  mutate(Rank=row_number())\n\nladyb_ballot\n\n\n        Player GP Total.Penalties Misconduct PIM Total.Assists PIM_per_GP Rank\n1  Nick Suzuki 61               3          0   6            46 0.09836066    1\n2  Jack Eichel 59               3          0   6            53 0.10169492    2\n3 Martin Necas 61               6          0  12            48 0.19672131    3\n4 Mitch Marner 60               6          0  12            58 0.20000000    4\n5 Jesper Bratt 62               6          0  14            51 0.22580645    5"
   },
   {
     "objectID": "posts/post-with-code/index.html",
