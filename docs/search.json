@@ -109,84 +109,49 @@
     "href": "index.html",
     "title": "BCB520Portfolio",
     "section": "",
-    "text": "Assignment 5\n\n\nHockey stuff\n\n\n\nAssignment\n\n\nDataViz\n\n\n\n\n\n\n\n\n\nMar 6, 2025\n\n\nSharon\n\n\n\n\n\n\n\n\n\n\n\n\nAssignment 4\n\n\nMarks and Channels\n\n\n\nAssignment\n\n\nDataViz\n\n\n\n\n\n\n\n\n\nFeb 13, 2025\n\n\nSharon\n\n\n\n\n\n\n\n\n\n\n\n\nBCB 520 Assignment 3\n\n\n\n\n\n\n\n\n\n\n\nJan 30, 2025\n\n\nSharon\n\n\n\n\n\n\n\n\n\n\n\n\nBCB 520 Assignment 2\n\n\n\n\n\n\n\n\n\n\n\nJan 25, 2025\n\n\nSharon\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nJan 25, 2025\n\n\nSharon\n\n\n\n\n\n\nNo matching items"
+    "text": "Assignment 5\n\n\nHockey stuff\n\n\n\nAssignment\n\n\nDataViz\n\n\n\n\n\n\n\n\n\nMar 18, 2025\n\n\nSharon\n\n\n\n\n\n\n\n\n\n\n\n\nAssignment 4\n\n\nMarks and Channels\n\n\n\nAssignment\n\n\nDataViz\n\n\n\n\n\n\n\n\n\nFeb 13, 2025\n\n\nSharon\n\n\n\n\n\n\n\n\n\n\n\n\nBCB 520 Assignment 3\n\n\n\n\n\n\n\n\n\n\n\nJan 30, 2025\n\n\nSharon\n\n\n\n\n\n\n\n\n\n\n\n\nBCB 520 Assignment 2\n\n\n\n\n\n\n\n\n\n\n\nJan 25, 2025\n\n\nSharon\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nJan 25, 2025\n\n\nSharon\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/Assignment 5 hockey/index.html",
     "href": "posts/Assignment 5 hockey/index.html",
     "title": "Assignment 5",
     "section": "",
-    "text": "In this assignment, we are going to practice creating visualizations for tabular data."
+    "text": "Here are my selections for the hockey trophies listed and described below in each section.\nFor each award, I have created a ballot of five players, ranked from 1 (first choice) to 5 (fifth choice). For each ballot, I have provided one to three visualizations that explain and justify your ballot."
   },
   {
-    "objectID": "posts/Assignment 5 hockey/index.html#hart-memorial-trophy",
-    "href": "posts/Assignment 5 hockey/index.html#hart-memorial-trophy",
+    "objectID": "posts/Assignment 5 hockey/index.html#vezina-ballot",
+    "href": "posts/Assignment 5 hockey/index.html#vezina-ballot",
     "title": "Assignment 5",
-    "section": "Hart Memorial Trophy",
-    "text": "Hart Memorial Trophy\nAwarded to the “player judged most valuable to his team.” This isn’t necessarily the best overall player, but rather the one who contributes most significantly to his team’s success."
+    "section": "Vezina ballot",
+    "text": "Vezina ballot\nOnce the data is filtered by &gt; 40 games played and &gt; 1100 saves, it seems like the best discerning feature would be % Saves (if I understand the data correctly). Once those are all sorted out, the top 5 players below will be on my Vezina Trophy ballot.\nThe vezina ballot:\n\n\nCode\nVezina_ballot &lt;- Goalie |&gt; select(Player, GP, Shots.Against, Saves, SV.) |&gt;\n  filter(GP &gt; 40) |&gt;\n  filter(Saves &gt; 1100) |&gt;\n  arrange(desc(SV.)) |&gt;\n  mutate(Rank=row_number()) |&gt;\n  slice_head(n=5)\n  \nVezina_ballot\n\n\n               Player GP Shots.Against Saves   SV. Rank\n1   Connor Hellebuyck 46          1262  1170 0.927    1\n2  Andrei Vasilevskiy 48          1335  1232 0.923    2\n3 Mackenzie Blackwood 44          1229  1125 0.915    3\n4     Igor Shesterkin 44          1263  1144 0.906    4\n5        Ilya Sorokin 45          1237  1117 0.903    5"
   },
   {
-    "objectID": "posts/Assignment 5 hockey/index.html#vezina-trophy",
-    "href": "posts/Assignment 5 hockey/index.html#vezina-trophy",
+    "objectID": "posts/Assignment 5 hockey/index.html#hart-memorial-ballot",
+    "href": "posts/Assignment 5 hockey/index.html#hart-memorial-ballot",
     "title": "Assignment 5",
-    "section": "Vezina Trophy",
-    "text": "Vezina Trophy\nPresented to the goaltender “adjudged to be the best at this position.” NHL general managers vote on this award."
+    "section": "Hart Memorial ballot",
+    "text": "Hart Memorial ballot\nAfter consideration, it seems to me that there is not an appreciable difference between playing 54 and 62 games, so that will not be considered. The only factor I will consider needed is GF, because this already sorts out players who have only played a small number of games. Therefore I will take the top 5 in the GF category:\nThe hart memorial ballot:\n\n\nCode\nhartmemorial_ballot &lt;- OnIce.Skater |&gt; select(Player, GF, GP) |&gt;\n  arrange(desc(GF)) |&gt;\n  slice_head(n=5) |&gt;\n  mutate(Rank=row_number())\n\nhartmemorial_ballot\n\n\n            Player  GF GP Rank\n1 Nathan MacKinnon 116 61    1\n2   Leon Draisaitl 109 60    2\n3  Nikita Kucherov 109 57    3\n4       Cale Makar 109 61    4\n5      Jack Eichel 106 59    5"
   },
   {
-    "objectID": "posts/Assignment 5 hockey/index.html#james-norris-memorial-trophy",
-    "href": "posts/Assignment 5 hockey/index.html#james-norris-memorial-trophy",
+    "objectID": "posts/Assignment 5 hockey/index.html#james-norris-ballot",
+    "href": "posts/Assignment 5 hockey/index.html#james-norris-ballot",
     "title": "Assignment 5",
-    "section": "James Norris Memorial Trophy",
-    "text": "James Norris Memorial Trophy\nAwarded to the defenseman who demonstrates “the greatest all-around ability” at the position."
+    "section": "James Norris ballot",
+    "text": "James Norris ballot\nHere is the James Norris ballot:\n\n\nCode\nJames_norris_ballot &lt;- top_shotsblocked |&gt; slice_head(n=5) |&gt;\n  mutate(Rank=row_number())\n\nJames_norris_ballot\n\n\n            Player     Team GP Shots.Blocked Rank\n1         Ian Cole      UTA 61           160    1\n2     Jacob Trouba ANA, NYR 58           158    2\n3      Chris Tanev      TOR 57           151    3\n4 Rasmus Andersson      CGY 60           147    4\n5      Nick Seeler      PHI 56           142    5"
   },
   {
-    "objectID": "posts/Assignment 5 hockey/index.html#calder-memorial-trophy",
-    "href": "posts/Assignment 5 hockey/index.html#calder-memorial-trophy",
+    "objectID": "posts/Assignment 5 hockey/index.html#calder-memorial-ballot",
+    "href": "posts/Assignment 5 hockey/index.html#calder-memorial-ballot",
     "title": "Assignment 5",
-    "section": "Calder Memorial Trophy",
-    "text": "Calder Memorial Trophy\nGiven to the player “adjudged to be the most proficient in his first year of competition.” This is essentially the rookie of the year award."
+    "section": "Calder memorial ballot:",
+    "text": "Calder memorial ballot:\nSince these have already been sorted above, I’m going to grab the top 5 for my ballot:\n\n\nCode\ncalder_overlap |&gt; mutate(Rank=row_number()) |&gt; slice_head(n=5) -&gt; calder_memorial_ballot\n\ncalder_memorial_ballot\n\n\n            Player Rank\n1       JJ Peterka    1\n2 Kirill Marchenko    2\n3     Logan Cooley    3\n4      Marco Rossi    4\n5    Matthew Knies    5"
   },
   {
-    "objectID": "posts/Assignment 5 hockey/index.html#frank-j.-selke-trophy",
-    "href": "posts/Assignment 5 hockey/index.html#frank-j.-selke-trophy",
+    "objectID": "posts/Assignment 5 hockey/index.html#frank-j.-selke-trophy-ballot",
+    "href": "posts/Assignment 5 hockey/index.html#frank-j.-selke-trophy-ballot",
     "title": "Assignment 5",
-    "section": "Frank J. Selke Trophy",
-    "text": "Frank J. Selke Trophy\nAwarded to the forward who best excels in the defensive aspects of the game."
-  },
-  {
-    "objectID": "posts/Assignment 5 hockey/index.html#lady-byng-memorial-trophy",
-    "href": "posts/Assignment 5 hockey/index.html#lady-byng-memorial-trophy",
-    "title": "Assignment 5",
-    "section": "Lady Byng Memorial Trophy",
-    "text": "Lady Byng Memorial Trophy\nPresented to the player who exhibits “the best type of sportsmanship and gentlemanly conduct combined with a high standard of playing ability.”\nNote that I’ve eliminated the awards that are determined by raw counting statistics (most goals, most points). The awards above are all based on votes from NHL media and executives, and the criteria are at least somewhat subjective.\n\nHere is the goal:\nFor each award, create your ballot of five players, ranked from 1 (your first choice) to 5 (your fifth choice). For each ballot, provide one to three visualizations that explain and justify your ballot."
-  },
-  {
-    "objectID": "posts/Assignment 5 hockey/index.html#the-data",
-    "href": "posts/Assignment 5 hockey/index.html#the-data",
-    "title": "Assignment 5",
-    "section": "THE DATA",
-    "text": "THE DATA\nAt minimum, we will use the data from naturalstattrick.com for player statistics for the season to date (Oct 2024 to March 2025). You can find the Data Dictionary here\n\n\nCode\nIndividual.Skater &lt;- read.csv(\"SkaterIndividualstats.csv\")\nOnIce.Skater &lt;- read.csv(\"SkaterOnicestats.csv\")\nGoalie &lt;- read.csv(\"Goalies.csv\")\nIndividual.Skater.Rookie &lt;- read.csv(\"RookieSkaterindividual.csv\")\nOnIce.Skater.Rookie &lt;- read.csv(\"RookieSkaterOnIce.csv\")\nRookie.Goalie &lt;- read.csv(\"RookieGoalies.csv\")\n\n\n\n\nCode\nview(Individual.Skater)\nview(OnIce.Skater)"
-  },
-  {
-    "objectID": "posts/Assignment 5 hockey/index.html#counting-stats-for-skaters",
-    "href": "posts/Assignment 5 hockey/index.html#counting-stats-for-skaters",
-    "title": "Assignment 5",
-    "section": "Counting Stats for Skaters",
-    "text": "Counting Stats for Skaters\n\n\nCode\nggplot(Individual.Skater, aes(x=Total.Points))+\n  geom_histogram(binwidth = 1)+\n  labs(x = \"Total Points\",\n       y = \"Number of Players\",\n       caption = \"source: https://www.naturalstattrick.com/\",\n       title = \"Distribution of Total Points\",\n       subtitle = \"2024-2025 season stats as of March 4\")\n\n\n\n\n\n\n\n\n\nCode\nggplot(Individual.Skater, aes(x=Goals))+\n  geom_histogram(binwidth = 1)+\n  labs(x = \"Goals Scored\",\n       y = \"Number of Players\",\n       caption = \"source: https://www.naturalstattrick.com/\",\n       title = \"Distribution of Goals Scored\",\n       subtitle = \"2024-2025 season stats as of March 4\")\n\n\n\n\n\n\n\n\n\nCode\nggplot(Individual.Skater, aes(x=Total.Assists))+\n  geom_histogram(binwidth = 1)+\n  labs(x = \"Total Assists\",\n       y = \"Number of Players\",\n       caption = \"source: https://www.naturalstattrick.com/\",\n       title = \"Distribution of Total Assists\",\n       subtitle = \"2024-2025 season stats as of March 4\")"
-  },
-  {
-    "objectID": "posts/Assignment 5 hockey/index.html#on-ice-stats-for-skaters",
-    "href": "posts/Assignment 5 hockey/index.html#on-ice-stats-for-skaters",
-    "title": "Assignment 5",
-    "section": "On Ice Stats for Skaters",
-    "text": "On Ice Stats for Skaters\n\n\nCode\nggplot(OnIce.Skater, aes(x=CF.))+\n  geom_histogram(binwidth = 1)+\n  labs(x = \"Corsi Percentage\",\n       y = \"Number of Players\",\n       caption = \"source: https://www.naturalstattrick.com/\",\n       title = \"Distribution of Corsi Percentage\",\n       subtitle = \"2024-2025 season stats as of March 4\")\n\n\n\n\n\n\n\n\n\nCode\nggplot(OnIce.Skater, aes(x=as.numeric(GF.)))+\n  geom_histogram(binwidth = 1)+\n  labs(x = \"Goals For Percentage\",\n       y = \"Number of Players\",\n       caption = \"source: https://www.naturalstattrick.com/\",\n       title = \"Distribution of Goals For Percentage\",\n       subtitle = \"2024-2025 season stats as of March 4\")\n\n\nWarning in FUN(X[[i]], ...): NAs introduced by coercion\n\n\nWarning: Removed 18 rows containing non-finite outside the scale range\n(`stat_bin()`).\n\n\n\n\n\n\n\n\n\nCode\nggplot(OnIce.Skater, aes(x=as.numeric(xGF.)))+\n  geom_histogram(binwidth = 1)+\n  labs(x = \"Expected Goals For Percentage\",\n       y = \"Number of Players\",\n       caption = \"source: https://www.naturalstattrick.com/\",\n       title = \"Distribution of Expected Goals For Percentage\",\n       subtitle = \"2024-2025 season stats as of March 4\")"
-  },
-  {
-    "objectID": "posts/Assignment 5 hockey/index.html#stats-for-goalies",
-    "href": "posts/Assignment 5 hockey/index.html#stats-for-goalies",
-    "title": "Assignment 5",
-    "section": "Stats for Goalies",
-    "text": "Stats for Goalies\n\n\nCode\nggplot(Goalie, aes(x=SV.))+\n  geom_histogram(binwidth = .01)+\n  labs(x = \"Save Percentage\",\n       y = \"Number of Players\",\n       caption = \"source: https://www.naturalstattrick.com/\",\n       title = \"Distribution of Save Percentage\",\n       subtitle = \"2024-2025 season stats as of March 4\")\n\n\n\n\n\n\n\n\n\nCode\nggplot(Goalie, aes(x=GAA))+\n  geom_histogram(binwidth = .2)+\n  labs(x = \"Goals Against Average\",\n       y = \"Number of Players\",\n       caption = \"source: https://www.naturalstattrick.com/\",\n       title = \"Distribution of Goals Against Average\",\n       subtitle = \"2024-2025 season stats as of March 4\")\n\n\n\n\n\n\n\n\n\nCode\nggplot(Goalie, aes(x=GSAA))+\n  geom_histogram(binwidth = 1)+\n  labs(x = \"Goals Saved Above Average\",\n       y = \"Number of Players\",\n       caption = \"source: https://www.naturalstattrick.com/\",\n       title = \"Distribution of Goals Saved Above Average\",\n       subtitle = \"2024-2025 season stats as of March 4\")"
+    "section": "Frank J. Selke Trophy ballot",
+    "text": "Frank J. Selke Trophy ballot\n\n\nCode\nfrank_ballot &lt;- frank_contendors |&gt; slice_head(n=5) |&gt;\n  select(-c(\"LastName\")) |&gt; mutate(Rank=row_number())\n  \n\nfrank_ballot\n\n\n            Player Position GP Shots.Blocked Rank\n1    Brandon Tanev        L 59            91    1\n2        Alex Tuch        R 59            87    2\n3     Noel Acciari        C 63            73    3\n4   Rickard Rakell        R 62            66    4\n5 Vincent Trocheck        C 61            66    5"
   },
   {
     "objectID": "posts/post-with-code/index.html",
@@ -236,19 +201,5 @@
     "title": "BCB 520 Assignment 2",
     "section": "Correlation plot 3 - lower triangle only, with p values starred, 20x20",
     "text": "Correlation plot 3 - lower triangle only, with p values starred, 20x20\n\ncorrplot(IF_IF_rcorr$r[1:20,1:20], p.mat=IF_IF_rcorr$P[1:20, 1:20], sig.level=c(0.01,0.05, 0.1), \n         insig='label_sig', pch.col='black', pch.cex=0.9,\n         method=c(\"circle\"), tl.cex=0.5, order=\"AOE\", type=\"lower\", diag = F)\nmtext(\"Infant Fecal Microbiome Correlation with AOE Cluster (6 mo avg)\", line =3)"
-  },
-  {
-    "objectID": "posts/Assignment 5 hockey/index.html#vezina-ballot",
-    "href": "posts/Assignment 5 hockey/index.html#vezina-ballot",
-    "title": "Assignment 5",
-    "section": "Vezina ballot",
-    "text": "Vezina ballot\nOnce the data is filtered by &gt; 40 games played and &gt; 1100 saves, it seems like the best discerning feature would be % Saves (if I understand the data correctly). Once those are all sorted out, the top 5 players below will be on my Vezina Trophy ballot.\nThe vezina ballot:\n\n\nCode\nVezina_ballot &lt;- Goalie |&gt; select(Player, GP, Shots.Against, Saves, SV.) |&gt;\n  filter(GP &gt; 40) |&gt;\n  filter(Saves &gt; 1100) |&gt;\n  arrange(desc(SV.)) |&gt;\n  mutate(Rank=row_number()) |&gt;\n  slice_head(n=5)\n  \nVezina_ballot\n\n\n               Player GP Shots.Against Saves   SV. Rank\n1   Connor Hellebuyck 46          1262  1170 0.927    1\n2  Andrei Vasilevskiy 48          1335  1232 0.923    2\n3 Mackenzie Blackwood 44          1229  1125 0.915    3\n4     Igor Shesterkin 44          1263  1144 0.906    4\n5        Ilya Sorokin 45          1237  1117 0.903    5"
-  },
-  {
-    "objectID": "posts/Assignment 5 hockey/index.html#hart-memorial-ballot",
-    "href": "posts/Assignment 5 hockey/index.html#hart-memorial-ballot",
-    "title": "Assignment 5",
-    "section": "Hart Memorial ballot",
-    "text": "Hart Memorial ballot\nAfter consideration, it seems to me that there is not an appreciable difference between playing 54 and 62 games, so that will not be considered. The only factor I will consider needed is GF, because this already sorts out players who have only played a small number of games. Therefore I will take the top 5 in the GF category:\nThe hart memorial ballot:\n\n\nCode\nhartmemorial_ballot &lt;- OnIce.Skater |&gt; select(Player, GF, GP) |&gt;\n  arrange(desc(GF)) |&gt;\n  slice_head(n=5) |&gt;\n  mutate(Rank=row_number())\n\nhartmemorial_ballot\n\n\n            Player  GF GP Rank\n1 Nathan MacKinnon 116 61    1\n2   Leon Draisaitl 109 60    2\n3  Nikita Kucherov 109 57    3\n4       Cale Makar 109 61    4\n5      Jack Eichel 106 59    5"
   }
 ]
