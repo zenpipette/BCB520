@@ -63,11 +63,18 @@
     "text": "Extra\nI think the ellipses are terrible.\n\n\nCode\ncorrplot(IF_IF_rcorr2$r, pch.col='black', pch.cex=0.7,\n         method=c(\"ellipse\"), tl.cex=0.5)\nmtext(\"Extra: ellipses\", line =3)"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "BCB520Portfolio",
+    "objectID": "posts/2025-01-30 assignment 3/index.html",
+    "href": "posts/2025-01-30 assignment 3/index.html",
+    "title": "BCB 520 Assignment 3",
     "section": "",
-    "text": "Assignment 4\n\n\nMarks and Channels\n\n\n\nAssignment\n\n\nDataViz\n\n\n\n\n\n\n\n\n\nFeb 13, 2025\n\n\nSharon\n\n\n\n\n\n\n\n\n\n\n\n\nBCB 520 Assignment 3\n\n\n\n\n\n\n\n\n\n\n\nJan 30, 2025\n\n\nSharon\n\n\n\n\n\n\n\n\n\n\n\n\nBCB 520 Assignment 2\n\n\n\n\n\n\n\n\n\n\n\nJan 25, 2025\n\n\nSharon\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nJan 25, 2025\n\n\nSharon\n\n\n\n\n\n\nNo matching items"
+    "text": "Herein lies BCB 520 assignment 3, which contains an infant fecal microbiome correlation plot.\nWhat does that mean?\nFirst, a little bit about the data: I have a data table that contains participants (first column, 21 rows of participant IDs), and bacterial genera read counts averaged over 9 timepoints per participant. There were initially over 1000 bacterial genera columns of data, but I have trimmed it down to the top 30.\nBefore I go on, we will load libraries and take a peek at the data table."
+  },
+  {
+    "objectID": "posts/2025-01-30 assignment 3/index.html#correlation-plot",
+    "href": "posts/2025-01-30 assignment 3/index.html#correlation-plot",
+    "title": "BCB 520 Assignment 3",
+    "section": "Correlation plot",
+    "text": "Correlation plot\nBelow is a raw plot. Note the dark diagonal line that corresponds to correlation 1. This represents something compared to itself (like Bacteriodes to Bacteriodes mentioned above).\nEach circle represents the direction and magnitude of the correlation as described by the legend on the left. Strong correlations are indicated with a large, dark circle. Blue means positive correlation, red means negative correlation.\nBut wait- I have a better one below. I felt that this plot may be useful to understand what rcorr is doing before I trim it down to what is actually interesting (to me).\n\ncorrplot(IF_IF_rcorr$r, pch.col='black', pch.cex=0.7,\n         method=c(\"circle\"), tl.cex=0.5)\nmtext(\"Infant Fecal Microbiome Correlation- Basic\", line =3)\n\n\n\n\n\n\n\n\nNow in order to improve the usefulness of the graphic, I have done several things:\nRemove the upper triangle. You may notice that the upper and lower triangles are mirror images, so this is just redundant data.\nRemove the 1-1 correlations (the dark blue diaganol). The fact that something is 1-1 correlated with itself is not useful or interesting.\nFlag significant p values, because it would be nice to know which correlations are actually statistically significant. One star represents a “trend” (p &lt; 0.05) and two stars indicate a significant correlation (P &lt; 0.01). [Don’t people usually say p &lt; 0.05 is significant? Yes, but this is exploratory data, and we just wanted a rough way to correct for false discovery rate. Don’t get me started on p value adjustments for correlation matrices. It’s a living nightmare.]\nI have also clustered the correlations with similar direction and magnitude using “Angular order of the Eigenvectors” (AOE). Basically that groups dots with similar colors and sizes together. There are other clustering methods, but I don’t understand them well enough to know which is the best."
   },
   {
     "objectID": "about.html",
@@ -98,18 +105,88 @@
     "text": "Interests\nMountains: climbing them, looking at them."
   },
   {
-    "objectID": "posts/2025-01-30 assignment 3/index.html",
-    "href": "posts/2025-01-30 assignment 3/index.html",
-    "title": "BCB 520 Assignment 3",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "BCB520Portfolio",
     "section": "",
-    "text": "Herein lies BCB 520 assignment 3, which contains an infant fecal microbiome correlation plot.\nWhat does that mean?\nFirst, a little bit about the data: I have a data table that contains participants (first column, 21 rows of participant IDs), and bacterial genera read counts averaged over 9 timepoints per participant. There were initially over 1000 bacterial genera columns of data, but I have trimmed it down to the top 30.\nBefore I go on, we will load libraries and take a peek at the data table."
+    "text": "Assignment 5\n\n\nHockey stuff\n\n\n\nAssignment\n\n\nDataViz\n\n\n\n\n\n\n\n\n\nMar 6, 2025\n\n\nSharon\n\n\n\n\n\n\n\n\n\n\n\n\nAssignment 4\n\n\nMarks and Channels\n\n\n\nAssignment\n\n\nDataViz\n\n\n\n\n\n\n\n\n\nFeb 13, 2025\n\n\nSharon\n\n\n\n\n\n\n\n\n\n\n\n\nBCB 520 Assignment 3\n\n\n\n\n\n\n\n\n\n\n\nJan 30, 2025\n\n\nSharon\n\n\n\n\n\n\n\n\n\n\n\n\nBCB 520 Assignment 2\n\n\n\n\n\n\n\n\n\n\n\nJan 25, 2025\n\n\nSharon\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nJan 25, 2025\n\n\nSharon\n\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "posts/2025-01-30 assignment 3/index.html#correlation-plot",
-    "href": "posts/2025-01-30 assignment 3/index.html#correlation-plot",
-    "title": "BCB 520 Assignment 3",
-    "section": "Correlation plot",
-    "text": "Correlation plot\nBelow is a raw plot. Note the dark diagonal line that corresponds to correlation 1. This represents something compared to itself (like Bacteriodes to Bacteriodes mentioned above).\nEach circle represents the direction and magnitude of the correlation as described by the legend on the left. Strong correlations are indicated with a large, dark circle. Blue means positive correlation, red means negative correlation.\nBut wait- I have a better one below. I felt that this plot may be useful to understand what rcorr is doing before I trim it down to what is actually interesting (to me).\n\ncorrplot(IF_IF_rcorr$r, pch.col='black', pch.cex=0.7,\n         method=c(\"circle\"), tl.cex=0.5)\nmtext(\"Infant Fecal Microbiome Correlation- Basic\", line =3)\n\n\n\n\n\n\n\n\nNow in order to improve the usefulness of the graphic, I have done several things:\nRemove the upper triangle. You may notice that the upper and lower triangles are mirror images, so this is just redundant data.\nRemove the 1-1 correlations (the dark blue diaganol). The fact that something is 1-1 correlated with itself is not useful or interesting.\nFlag significant p values, because it would be nice to know which correlations are actually statistically significant. One star represents a “trend” (p &lt; 0.05) and two stars indicate a significant correlation (P &lt; 0.01). [Don’t people usually say p &lt; 0.05 is significant? Yes, but this is exploratory data, and we just wanted a rough way to correct for false discovery rate. Don’t get me started on p value adjustments for correlation matrices. It’s a living nightmare.]\nI have also clustered the correlations with similar direction and magnitude using “Angular order of the Eigenvectors” (AOE). Basically that groups dots with similar colors and sizes together. There are other clustering methods, but I don’t understand them well enough to know which is the best."
+    "objectID": "posts/Assignment 5 hockey/index.html",
+    "href": "posts/Assignment 5 hockey/index.html",
+    "title": "Assignment 5",
+    "section": "",
+    "text": "In this assignment, we are going to practice creating visualizations for tabular data."
+  },
+  {
+    "objectID": "posts/Assignment 5 hockey/index.html#hart-memorial-trophy",
+    "href": "posts/Assignment 5 hockey/index.html#hart-memorial-trophy",
+    "title": "Assignment 5",
+    "section": "Hart Memorial Trophy",
+    "text": "Hart Memorial Trophy\nAwarded to the “player judged most valuable to his team.” This isn’t necessarily the best overall player, but rather the one who contributes most significantly to his team’s success."
+  },
+  {
+    "objectID": "posts/Assignment 5 hockey/index.html#vezina-trophy",
+    "href": "posts/Assignment 5 hockey/index.html#vezina-trophy",
+    "title": "Assignment 5",
+    "section": "Vezina Trophy",
+    "text": "Vezina Trophy\nPresented to the goaltender “adjudged to be the best at this position.” NHL general managers vote on this award."
+  },
+  {
+    "objectID": "posts/Assignment 5 hockey/index.html#james-norris-memorial-trophy",
+    "href": "posts/Assignment 5 hockey/index.html#james-norris-memorial-trophy",
+    "title": "Assignment 5",
+    "section": "James Norris Memorial Trophy",
+    "text": "James Norris Memorial Trophy\nAwarded to the defenseman who demonstrates “the greatest all-around ability” at the position."
+  },
+  {
+    "objectID": "posts/Assignment 5 hockey/index.html#calder-memorial-trophy",
+    "href": "posts/Assignment 5 hockey/index.html#calder-memorial-trophy",
+    "title": "Assignment 5",
+    "section": "Calder Memorial Trophy",
+    "text": "Calder Memorial Trophy\nGiven to the player “adjudged to be the most proficient in his first year of competition.” This is essentially the rookie of the year award."
+  },
+  {
+    "objectID": "posts/Assignment 5 hockey/index.html#frank-j.-selke-trophy",
+    "href": "posts/Assignment 5 hockey/index.html#frank-j.-selke-trophy",
+    "title": "Assignment 5",
+    "section": "Frank J. Selke Trophy",
+    "text": "Frank J. Selke Trophy\nAwarded to the forward who best excels in the defensive aspects of the game."
+  },
+  {
+    "objectID": "posts/Assignment 5 hockey/index.html#lady-byng-memorial-trophy",
+    "href": "posts/Assignment 5 hockey/index.html#lady-byng-memorial-trophy",
+    "title": "Assignment 5",
+    "section": "Lady Byng Memorial Trophy",
+    "text": "Lady Byng Memorial Trophy\nPresented to the player who exhibits “the best type of sportsmanship and gentlemanly conduct combined with a high standard of playing ability.”\nNote that I’ve eliminated the awards that are determined by raw counting statistics (most goals, most points). The awards above are all based on votes from NHL media and executives, and the criteria are at least somewhat subjective.\n\nHere is the goal:\nFor each award, create your ballot of five players, ranked from 1 (your first choice) to 5 (your fifth choice). For each ballot, provide one to three visualizations that explain and justify your ballot."
+  },
+  {
+    "objectID": "posts/Assignment 5 hockey/index.html#the-data",
+    "href": "posts/Assignment 5 hockey/index.html#the-data",
+    "title": "Assignment 5",
+    "section": "THE DATA",
+    "text": "THE DATA\nAt minimum, we will use the data from naturalstattrick.com for player statistics for the season to date (Oct 2024 to March 2025). You can find the Data Dictionary here\n\n\nCode\nIndividual.Skater &lt;- read.csv(\"SkaterIndividualstats.csv\")\nOnIce.Skater &lt;- read.csv(\"SkaterOnicestats.csv\")\nGoalie &lt;- read.csv(\"Goalies.csv\")\nIndividual.Skater.Rookie &lt;- read.csv(\"RookieSkaterindividual.csv\")\nOnIce.Skater.Rookie &lt;- read.csv(\"RookieSkaterOnIce.csv\")\nRookie.Goalie &lt;- read.csv(\"RookieGoalies.csv\")\n\n\n\n\nCode\nview(Individual.Skater)\nview(OnIce.Skater)"
+  },
+  {
+    "objectID": "posts/Assignment 5 hockey/index.html#counting-stats-for-skaters",
+    "href": "posts/Assignment 5 hockey/index.html#counting-stats-for-skaters",
+    "title": "Assignment 5",
+    "section": "Counting Stats for Skaters",
+    "text": "Counting Stats for Skaters\n\n\nCode\nggplot(Individual.Skater, aes(x=Total.Points))+\n  geom_histogram(binwidth = 1)+\n  labs(x = \"Total Points\",\n       y = \"Number of Players\",\n       caption = \"source: https://www.naturalstattrick.com/\",\n       title = \"Distribution of Total Points\",\n       subtitle = \"2024-2025 season stats as of March 4\")\n\n\n\n\n\n\n\n\n\nCode\nggplot(Individual.Skater, aes(x=Goals))+\n  geom_histogram(binwidth = 1)+\n  labs(x = \"Goals Scored\",\n       y = \"Number of Players\",\n       caption = \"source: https://www.naturalstattrick.com/\",\n       title = \"Distribution of Goals Scored\",\n       subtitle = \"2024-2025 season stats as of March 4\")\n\n\n\n\n\n\n\n\n\nCode\nggplot(Individual.Skater, aes(x=Total.Assists))+\n  geom_histogram(binwidth = 1)+\n  labs(x = \"Total Assists\",\n       y = \"Number of Players\",\n       caption = \"source: https://www.naturalstattrick.com/\",\n       title = \"Distribution of Total Assists\",\n       subtitle = \"2024-2025 season stats as of March 4\")"
+  },
+  {
+    "objectID": "posts/Assignment 5 hockey/index.html#on-ice-stats-for-skaters",
+    "href": "posts/Assignment 5 hockey/index.html#on-ice-stats-for-skaters",
+    "title": "Assignment 5",
+    "section": "On Ice Stats for Skaters",
+    "text": "On Ice Stats for Skaters\n\n\nCode\nggplot(OnIce.Skater, aes(x=CF.))+\n  geom_histogram(binwidth = 1)+\n  labs(x = \"Corsi Percentage\",\n       y = \"Number of Players\",\n       caption = \"source: https://www.naturalstattrick.com/\",\n       title = \"Distribution of Corsi Percentage\",\n       subtitle = \"2024-2025 season stats as of March 4\")\n\n\n\n\n\n\n\n\n\nCode\nggplot(OnIce.Skater, aes(x=as.numeric(GF.)))+\n  geom_histogram(binwidth = 1)+\n  labs(x = \"Goals For Percentage\",\n       y = \"Number of Players\",\n       caption = \"source: https://www.naturalstattrick.com/\",\n       title = \"Distribution of Goals For Percentage\",\n       subtitle = \"2024-2025 season stats as of March 4\")\n\n\nWarning in FUN(X[[i]], ...): NAs introduced by coercion\n\n\nWarning: Removed 18 rows containing non-finite outside the scale range\n(`stat_bin()`).\n\n\n\n\n\n\n\n\n\nCode\nggplot(OnIce.Skater, aes(x=as.numeric(xGF.)))+\n  geom_histogram(binwidth = 1)+\n  labs(x = \"Expected Goals For Percentage\",\n       y = \"Number of Players\",\n       caption = \"source: https://www.naturalstattrick.com/\",\n       title = \"Distribution of Expected Goals For Percentage\",\n       subtitle = \"2024-2025 season stats as of March 4\")"
+  },
+  {
+    "objectID": "posts/Assignment 5 hockey/index.html#stats-for-goalies",
+    "href": "posts/Assignment 5 hockey/index.html#stats-for-goalies",
+    "title": "Assignment 5",
+    "section": "Stats for Goalies",
+    "text": "Stats for Goalies\n\n\nCode\nggplot(Goalie, aes(x=SV.))+\n  geom_histogram(binwidth = .01)+\n  labs(x = \"Save Percentage\",\n       y = \"Number of Players\",\n       caption = \"source: https://www.naturalstattrick.com/\",\n       title = \"Distribution of Save Percentage\",\n       subtitle = \"2024-2025 season stats as of March 4\")\n\n\n\n\n\n\n\n\n\nCode\nggplot(Goalie, aes(x=GAA))+\n  geom_histogram(binwidth = .2)+\n  labs(x = \"Goals Against Average\",\n       y = \"Number of Players\",\n       caption = \"source: https://www.naturalstattrick.com/\",\n       title = \"Distribution of Goals Against Average\",\n       subtitle = \"2024-2025 season stats as of March 4\")\n\n\n\n\n\n\n\n\n\nCode\nggplot(Goalie, aes(x=GSAA))+\n  geom_histogram(binwidth = 1)+\n  labs(x = \"Goals Saved Above Average\",\n       y = \"Number of Players\",\n       caption = \"source: https://www.naturalstattrick.com/\",\n       title = \"Distribution of Goals Saved Above Average\",\n       subtitle = \"2024-2025 season stats as of March 4\")"
   },
   {
     "objectID": "posts/post-with-code/index.html",
@@ -159,5 +236,19 @@
     "title": "BCB 520 Assignment 2",
     "section": "Correlation plot 3 - lower triangle only, with p values starred, 20x20",
     "text": "Correlation plot 3 - lower triangle only, with p values starred, 20x20\n\ncorrplot(IF_IF_rcorr$r[1:20,1:20], p.mat=IF_IF_rcorr$P[1:20, 1:20], sig.level=c(0.01,0.05, 0.1), \n         insig='label_sig', pch.col='black', pch.cex=0.9,\n         method=c(\"circle\"), tl.cex=0.5, order=\"AOE\", type=\"lower\", diag = F)\nmtext(\"Infant Fecal Microbiome Correlation with AOE Cluster (6 mo avg)\", line =3)"
+  },
+  {
+    "objectID": "posts/Assignment 5 hockey/index.html#vezina-ballot",
+    "href": "posts/Assignment 5 hockey/index.html#vezina-ballot",
+    "title": "Assignment 5",
+    "section": "Vezina ballot",
+    "text": "Vezina ballot\nOnce the data is filtered by &gt; 40 games played and &gt; 1100 saves, it seems like the best discerning feature would be % Saves (if I understand the data correctly). Once those are all sorted out, the top 5 players below will be on my Vezina Trophy ballot.\nThe vezina ballot:\n\n\nCode\nVezina_ballot &lt;- Goalie |&gt; select(Player, GP, Shots.Against, Saves, SV.) |&gt;\n  filter(GP &gt; 40) |&gt;\n  filter(Saves &gt; 1100) |&gt;\n  arrange(desc(SV.)) |&gt;\n  mutate(Rank=row_number()) |&gt;\n  slice_head(n=5)\n  \nVezina_ballot\n\n\n               Player GP Shots.Against Saves   SV. Rank\n1   Connor Hellebuyck 46          1262  1170 0.927    1\n2  Andrei Vasilevskiy 48          1335  1232 0.923    2\n3 Mackenzie Blackwood 44          1229  1125 0.915    3\n4     Igor Shesterkin 44          1263  1144 0.906    4\n5        Ilya Sorokin 45          1237  1117 0.903    5"
+  },
+  {
+    "objectID": "posts/Assignment 5 hockey/index.html#hart-memorial-ballot",
+    "href": "posts/Assignment 5 hockey/index.html#hart-memorial-ballot",
+    "title": "Assignment 5",
+    "section": "Hart Memorial ballot",
+    "text": "Hart Memorial ballot\nAfter consideration, it seems to me that there is not an appreciable difference between playing 54 and 62 games, so that will not be considered. The only factor I will consider needed is GF, because this already sorts out players who have only played a small number of games. Therefore I will take the top 5 in the GF category:\nThe hart memorial ballot:\n\n\nCode\nhartmemorial_ballot &lt;- OnIce.Skater |&gt; select(Player, GF, GP) |&gt;\n  arrange(desc(GF)) |&gt;\n  slice_head(n=5) |&gt;\n  mutate(Rank=row_number())\n\nhartmemorial_ballot\n\n\n            Player  GF GP Rank\n1 Nathan MacKinnon 116 61    1\n2   Leon Draisaitl 109 60    2\n3  Nikita Kucherov 109 57    3\n4       Cale Makar 109 61    4\n5      Jack Eichel 106 59    5"
   }
 ]
