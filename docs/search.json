@@ -7,6 +7,111 @@
     "text": "This is my first post in a Quarto blog.\nThe world is my oyster.\nNext stop: the moon."
   },
   {
+    "objectID": "posts/Mar_20_ballots/index.html",
+    "href": "posts/Mar_20_ballots/index.html",
+    "title": "Assignment 5 continued",
+    "section": "",
+    "text": "In this continuation of Assignment 5, I will combine all the ballots from my classmates into 1 using a scoring system. If the player is ranked 1, they get 10 points. Rank 2 gets 7 points and so on like this:\nRank 1- 10 points Rank 2- 7 points Rank 3- 5 points Rank 4- 3 points Rank 5- 1 point\nThen we will see who has the highest score, and they will be on the final ballots.\nFirst all ballots need to be gathered, rearranged, and combined.\nObtain Sharon’s ballot, which is the gold standard for formatting:\n\n\nCode\nSharon &lt;- readRDS(\"C:/Users/sharo/Desktop/BCB 520/BCB520/posts/Mar_20_ballots/sharon_ballot.rds\")\nSharon |&gt; mutate(Award = str_replace_all(Award, c(\"Frank Selke Memorial\" = \"Frank\", \n                                                  \"Calder Memorial\"=\"Calder\",\n                                                  \"Hart Memorial\"=\"Hart\",\n                                                  \"James Norris Memorial\" = \"James\",\n                                                  \"Lady Byng Memorial\"=\"Lady\"))) -&gt; Sharon\n\n\nObtain Barrie’s ballot and adjust.\n\n\nCode\nBarrie &lt;- read_excel(\"C:/Users/sharo/Desktop/BCB 520/BCB520/posts/Mar_20_ballots/Barrie.xlsx\")\n\nBarrie |&gt;\n  mutate(Award = str_replace_all(Award, c(\"Selke\" = \"Frank\", \"Byng\" = \"Lady\", \"Norris\" = \"James\"))) -&gt; Barrie\n\n\nObtain Betsy’s ballot and adjust.\n\n\nCode\nBetsy &lt;- read_excel(\"C:/Users/sharo/Desktop/BCB 520/BCB520/posts/Mar_20_ballots/BetsyChurchHockeyBallot.xlsx\")\nBetsy |&gt; relocate(`Player Name`, .before=Name) |&gt;\n  relocate(`Nomination position`, .before=Name) |&gt;\n  rename(\n    Player = `Player Name`,\n    Rank = `Nomination position`,\n    Voter = Name\n  ) |&gt;\n  mutate(Award = str_replace_all(Award, c(\"Selke\" = \"Frank\", \"Byng\" = \"Lady\", \"Norris\" = \"James\"))) -&gt; Betsy\n\n\nObtain Justice’s ballot and adjust.\n\n\nCode\nJustice &lt;- read_excel(\"C:/Users/sharo/Desktop/BCB 520/BCB520/posts/Mar_20_ballots/Book 10.xlsx\")\nJustice |&gt; fill(Award) |&gt;\n  group_by(Award) %&gt;%\n  mutate(Rank = rep(1:5, length.out = n()), Voter = \"Justice\") %&gt;%\n  ungroup() |&gt;\n  rename(Player = `Top 5 Individuals`) %&gt;%\n  select(Player, Rank, Voter, Award) -&gt; Justice\n\nJustice |&gt; \n  mutate(Player=strsplit(as.character(Player), \"-\")) |&gt;\n  unnest(Player) |&gt;\n  mutate(Award = str_replace_all(Award, c(\"Hart Memorial\" = \"Hart\", \"Vezina Trophy\" = \"Vezina\", \n                                          \"James Norris Memorial\"= \"James\", \"Calder Memorial\"=\"Calder\", \n                                          \"Frank J Selke\"=\"Frank\"))) |&gt;\n  filter(!is.na(Player)) -&gt; Justice\n\n\nObtain Marwa’s ballot and adjust.\n\n\nCode\nMarwa &lt;- read_excel(\"C:/Users/sharo/Desktop/BCB 520/BCB520/posts/Mar_20_ballots/Book 11.xlsx\")\nMarwa |&gt; mutate(Award = str_replace_all(Award, c(\"Hart Memorial Trophy\" = \"Hart\", \"Vezina Trophy\" = \"Vezina\", \n                                          \"James Norris Memorial Trophy\"= \"James\", \"Calder Memorial Trophy\"=\"Calder\", \n                                          \"Frank J. Selke Trophy\"=\"Frank\", \"Lady Byng Memorial Trophy\"=\"Lady\"))) -&gt; Marwa\n\n\nObtain Claire’s ballot and adjust.\n\n\nCode\nClaire &lt;- read.table(\"C:/Users/sharo/Desktop/BCB 520/BCB520/posts/Mar_20_ballots/CS_ballot.txt\", header = TRUE, sep = \",\", stringsAsFactors = FALSE)\n\nClaire |&gt; mutate(Award = str_replace_all(Award, c(\"Heart\" = \"Hart\", \n                                          \"James Norris\"= \"James\", \n                                          \"Frank J. Selke\"=\"Frank\", \"Lady Btng\"=\"Lady\"))) |&gt;\n  select(Player, Rank, Voter, Award) -&gt; Claire\n\n\nObtain Ian’s ballot and adjust.\n\n\nCode\nIan &lt;- read_excel(\"C:/Users/sharo/Desktop/BCB 520/BCB520/posts/Mar_20_ballots/IAN HOCKEY NOMINATIONS.xlsx\")\n\n\nNew names:\n• `` -&gt; `...3`\n\n\nCode\nIan |&gt; select(Voter, Trophy, Player) |&gt;\n  group_by(Trophy) |&gt;\n  mutate(Rank=row_number()) |&gt;\n  ungroup() |&gt;\n  mutate(Award = str_replace_all(Trophy, c(\"Hart Memorial\" = \"Hart\", \n                                          \"James Norris\"= \"James\", \"Calder Memorial\"=\"Calder\",\n                                          \"Frank J Selke\"=\"Frank\", \"Lady Byng\"=\"Lady\"))) |&gt;\n  select(Player, Rank, Voter, Award) -&gt; Ian\n\n\nObtain John’s ballot and adjust.\n\n\nCode\nJohn &lt;- read.table(\"C:/Users/sharo/Desktop/BCB 520/BCB520/posts/Mar_20_ballots/JohnCam.txt\", header = TRUE, sep = \",\", stringsAsFactors = FALSE)\n\nJohn |&gt; mutate(Voter=\"John\") |&gt; \n  mutate(Award = str_replace_all(Award, c(\"James Norris\"= \"James\",\n                                          \"Frank J. Selke\"=\"Frank\", \"Lady Bing\"=\"Lady\"))) |&gt;\n  rename(Rank = Place) |&gt;\n  select(Player, Rank, Voter, Award) -&gt; John\n\n\nObtain Henry’s ballot and adjust.\n\n\nCode\nHenry &lt;- read_excel(\"C:/Users/sharo/Desktop/BCB 520/BCB520/posts/Mar_20_ballots/NHL award ballot HT.xlsx\")\nHenry |&gt; mutate(Award = str_replace_all(Award, c(\"James Norris\"= \"James\",\n                                          \"Frank J. Selke\"=\"Frank\", \"Lady Byng\"=\"Lady\"))) |&gt;\n  mutate(Voter = ifelse(Voter == \"Henry Trujillo\", \"Henry\", Voter)) -&gt; Henry\n\n\nObtain Priya’s ballot and adjust.\n\n\nCode\nPriya &lt;- read_excel(\"C:/Users/sharo/Desktop/BCB 520/BCB520/posts/Mar_20_ballots/NHL_Award_ballet.xlsx\")\nPriya %&gt;%\n  pivot_longer(cols = -c(Voters, Rank), names_to = \"Award\", values_to = \"Player\") %&gt;%\n  mutate(Voters = ifelse(Voters == \"'\\\"'\", \"Priya\", Voters)) |&gt;\n  mutate(Voter=\"Priya\") |&gt; select(-Voters) |&gt;\n  mutate(Award = str_replace_all(Award, c(\"VEZINA\"= \"Vezina\",\n                                          \"HART\"=\"Hart\",\n                                          \"JAMES NORRIS\"=\"James\",\n                                          \"CALDER\"=\"Calder\",\n                                          \"FRANK J SELKE\"=\"Frank\",\n                                          \"LADY BING\"=\"Lady\"))) |&gt;\n  select(Player, Rank, Voter, Award) -&gt; Priya\n\n\nEveryone’s combined ballots (head only)\n\n\nCode\neveryone &lt;- rbind(Barrie, Sharon, Betsy, Claire, Henry, Ian, John, Justice, Marwa, Priya)\n\neveryone |&gt;\n  mutate(Player = str_squish(Player)) %&gt;%\n  mutate(Player = ifelse(str_detect(Player, \" \"), \n                         word(Player, -1), \n                         Player)) |&gt;\n  mutate(Player = ifelse(Player == \"Caufieldn\", \"Caufield\", Player)) |&gt;\n  mutate(Player = ifelse(str_detect(Player, \"^Go\"), \"Gostisbeher\", Player)) -&gt; everyone\nhead(everyone)\n\n\n# A tibble: 6 × 4\n  Voter  Award  Player      Rank\n  &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;      &lt;dbl&gt;\n1 Barrie Hart   Hughes         1\n2 Barrie Hart   Werenski       2\n3 Barrie Hart   Makar          3\n4 Barrie Hart   Draisaitl      4\n5 Barrie Hart   Kucherov       5\n6 Barrie Vezina Hellebuyck     1\n\n\nThe final scores (head only)\n\n\nCode\neveryone |&gt;mutate(Score = case_when(\n    Rank == 5 ~ 1,\n    Rank == 4 ~ 3,\n    Rank == 3 ~ 5,\n    Rank == 2 ~ 7,\n    Rank == 1 ~ 10,\n    TRUE ~ 0  # default case if Rank is not 1-5\n  )) |&gt; \n  group_by(Award, Player)|&gt;\n  summarise(sum(Score)) -&gt; finalscore\n\n\n`summarise()` has grouped output by 'Award'. You can override using the\n`.groups` argument.\n\n\nCode\nhead(finalscore)\n\n\n# A tibble: 6 × 3\n# Groups:   Award [1]\n  Award  Player     `sum(Score)`\n  &lt;chr&gt;  &lt;chr&gt;             &lt;dbl&gt;\n1 Calder Bolduc                7\n2 Calder Brink                10\n3 Calder Clurman              10\n4 Calder Cooley                6\n5 Calder Cotter                1\n6 Calder Crookshank            5\n\n\n\n\nCode\nfinalscore &lt;- finalscore %&gt;%\n  rename(sumscore = `sum(Score)`)\n\n\nCreate final ballots for each award\nI acknowledge ties in the scores and choose not to do anything about them.\nCalder Memorial\n\n\nCode\nfinalscore |&gt; filter(Award==\"Calder\") |&gt;\n  arrange(desc(sumscore)) |&gt;\n  slice_head(n=5) |&gt;\n  mutate(Rank=row_number()) -&gt; final_ballot_calder\n\nfinal_ballot_calder\n\n\n# A tibble: 5 × 4\n# Groups:   Award [1]\n  Award  Player    sumscore  Rank\n  &lt;chr&gt;  &lt;chr&gt;        &lt;dbl&gt; &lt;int&gt;\n1 Calder Marchenko       55     1\n2 Calder Johnston        45     2\n3 Calder Rossi           24     3\n4 Calder Holloway        16     4\n5 Calder Johnson         12     5\n\n\nFrank Selke\n\n\nCode\nfinalscore |&gt; filter(Award==\"Frank\") |&gt;\n  arrange(desc(sumscore)) |&gt;\n  slice_head(n=5) |&gt;\n  mutate(Rank=row_number()) -&gt; final_ballot_Frank\n\nfinal_ballot_Frank\n\n\n# A tibble: 5 × 4\n# Groups:   Award [1]\n  Award Player     sumscore  Rank\n  &lt;chr&gt; &lt;chr&gt;         &lt;dbl&gt; &lt;int&gt;\n1 Frank Tanev            20     1\n2 Frank Blake            17     2\n3 Frank MacKinnon        15     3\n4 Frank Tuch             14     4\n5 Frank Zetterlund       14     5\n\n\nHart Memorial\n\n\nCode\nfinalscore |&gt; filter(Award==\"Hart\") |&gt;\n  arrange(desc(sumscore)) |&gt;\n  slice_head(n=5) |&gt;\n  mutate(Rank=row_number()) -&gt; final_ballot_hart\n\nfinal_ballot_hart\n\n\n# A tibble: 5 × 4\n# Groups:   Award [1]\n  Award Player      sumscore  Rank\n  &lt;chr&gt; &lt;chr&gt;          &lt;dbl&gt; &lt;int&gt;\n1 Hart  Draisaitl         38     1\n2 Hart  MacKinnon         22     2\n3 Hart  Gostisbeher       21     3\n4 Hart  Kucherov          21     4\n5 Hart  Werenski          14     5\n\n\nJames Norris\n\n\nCode\nfinalscore |&gt; filter(Award==\"James\") |&gt;\n  arrange(desc(sumscore)) |&gt;\n  slice_head(n=5) |&gt;\n  mutate(Rank=row_number()) -&gt; final_ballot_James\n\nfinal_ballot_James\n\n\n# A tibble: 5 × 4\n# Groups:   Award [1]\n  Award Player   sumscore  Rank\n  &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;int&gt;\n1 James Makar          21     1\n2 James Hughes         20     2\n3 James Cole           18     3\n4 James Werenski       15     4\n5 James Bouchard       13     5\n\n\nLady Byng\n\n\nCode\nfinalscore |&gt; filter(Award==\"Lady\") |&gt;\n  arrange(desc(sumscore)) |&gt;\n  slice_head(n=5) |&gt;\n  mutate(Rank=row_number()) -&gt; final_ballot_lady\n\nfinal_ballot_lady\n\n\n# A tibble: 5 × 4\n# Groups:   Award [1]\n  Award Player   sumscore  Rank\n  &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt; &lt;int&gt;\n1 Lady  Point          25     1\n2 Lady  Karlsson       21     2\n3 Lady  Makar          20     3\n4 Lady  Eichel         14     4\n5 Lady  Connor         10     5\n\n\nVezina memorial\n\n\nCode\nfinalscore |&gt; filter(Award==\"Vezina\") |&gt;\n  arrange(desc(sumscore)) |&gt;\n  slice_head(n=5) |&gt;\n  mutate(Rank=row_number()) -&gt; final_ballot_vezina\n\nfinal_ballot_vezina\n\n\n# A tibble: 5 × 4\n# Groups:   Award [1]\n  Award  Player      sumscore  Rank\n  &lt;chr&gt;  &lt;chr&gt;          &lt;dbl&gt; &lt;int&gt;\n1 Vezina Hellebuyck        90     1\n2 Vezina Vasilevskiy       57     2\n3 Vezina Thompson          28     3\n4 Vezina Blackwood         19     4\n5 Vezina Wolf              12     5\n\n\nI am going to rename Frank to Selke, James to Norris, and Lady to Byng because I don’t know why I chose the first names. Last names sound better.\nHere is the final compiled ballot:\n\n\nCode\nfinal_ballot &lt;- rbind(final_ballot_calder, final_ballot_Frank, final_ballot_hart, final_ballot_James, \n                      final_ballot_lady, final_ballot_vezina)\n\nfinal_ballot &lt;- final_ballot |&gt; \n  mutate(Award = case_when(\n    Award == \"Frank\" ~ \"Selke\",\n    Award == \"James\" ~ \"Norris\",\n    Award == \"Lady\" ~ \"Byng\",\n    TRUE ~ Award  # Keep other entries unchanged\n  ))\n\nfinal_ballot\n\n\n# A tibble: 30 × 4\n# Groups:   Award [6]\n   Award  Player     sumscore  Rank\n   &lt;chr&gt;  &lt;chr&gt;         &lt;dbl&gt; &lt;int&gt;\n 1 Calder Marchenko        55     1\n 2 Calder Johnston         45     2\n 3 Calder Rossi            24     3\n 4 Calder Holloway         16     4\n 5 Calder Johnson          12     5\n 6 Selke  Tanev            20     1\n 7 Selke  Blake            17     2\n 8 Selke  MacKinnon        15     3\n 9 Selke  Tuch             14     4\n10 Selke  Zetterlund       14     5\n# ℹ 20 more rows"
+  },
+  {
+    "objectID": "posts/Assignment 5 hockey/index.html",
+    "href": "posts/Assignment 5 hockey/index.html",
+    "title": "Assignment 5",
+    "section": "",
+    "text": "Here are my selections for the hockey trophies listed and described below in each section.\nFor each award, I have created a ballot of five players, ranked from 1 (first choice) to 5 (fifth choice). For each ballot, I have provided one to three visualizations that explain and justify the ballot."
+  },
+  {
+    "objectID": "posts/Assignment 5 hockey/index.html#vezina-ballot",
+    "href": "posts/Assignment 5 hockey/index.html#vezina-ballot",
+    "title": "Assignment 5",
+    "section": "Vezina ballot",
+    "text": "Vezina ballot\nOnce the data is filtered by &gt; 40 games played and &gt; 1100 saves, it seems like the best discerning feature would be % Saves (if I understand the data correctly). Once those are all sorted out, the top 5 players below will be on my Vezina Trophy ballot.\nThe vezina ballot:\n\n\nCode\nVezina_ballot &lt;- Goalie |&gt; select(Player, GP, Shots.Against, Saves, SV.) |&gt;\n  filter(GP &gt; 40) |&gt;\n  filter(Saves &gt; 1100) |&gt;\n  arrange(desc(SV.)) |&gt;\n  mutate(Rank=row_number()) |&gt;\n  slice_head(n=5)\n  \nVezina_ballot\n\n\n               Player GP Shots.Against Saves   SV. Rank\n1   Connor Hellebuyck 46          1262  1170 0.927    1\n2  Andrei Vasilevskiy 48          1335  1232 0.923    2\n3 Mackenzie Blackwood 44          1229  1125 0.915    3\n4     Igor Shesterkin 44          1263  1144 0.906    4\n5        Ilya Sorokin 45          1237  1117 0.903    5"
+  },
+  {
+    "objectID": "posts/Assignment 5 hockey/index.html#hart-memorial-ballot",
+    "href": "posts/Assignment 5 hockey/index.html#hart-memorial-ballot",
+    "title": "Assignment 5",
+    "section": "Hart Memorial ballot",
+    "text": "Hart Memorial ballot\nAfter consideration, it seems to me that there is not an appreciable difference between playing 54 and 62 games, so that will not be considered. The only factor I will consider needed is GF, because this already sorts out players who have only played a small number of games. Therefore I will take the top 5 in the GF category:\nThe hart memorial ballot:\n\n\nCode\nhartmemorial_ballot &lt;- OnIce.Skater |&gt; select(Player, GF, GP) |&gt;\n  arrange(desc(GF)) |&gt;\n  slice_head(n=5) |&gt;\n  mutate(Rank=row_number())\n\nhartmemorial_ballot\n\n\n            Player  GF GP Rank\n1 Nathan MacKinnon 116 61    1\n2   Leon Draisaitl 109 60    2\n3  Nikita Kucherov 109 57    3\n4       Cale Makar 109 61    4\n5      Jack Eichel 106 59    5"
+  },
+  {
+    "objectID": "posts/Assignment 5 hockey/index.html#james-norris-ballot",
+    "href": "posts/Assignment 5 hockey/index.html#james-norris-ballot",
+    "title": "Assignment 5",
+    "section": "James Norris ballot",
+    "text": "James Norris ballot\nHere is the James Norris ballot, based on shots blocked:\n\n\nCode\nJames_norris_ballot &lt;- top_shotsblocked |&gt; slice_head(n=5) |&gt;\n  mutate(Rank=row_number())\n\nJames_norris_ballot\n\n\n            Player     Team GP Shots.Blocked Rank\n1         Ian Cole      UTA 61           160    1\n2     Jacob Trouba ANA, NYR 58           158    2\n3      Chris Tanev      TOR 57           151    3\n4 Rasmus Andersson      CGY 60           147    4\n5      Nick Seeler      PHI 56           142    5"
+  },
+  {
+    "objectID": "posts/Assignment 5 hockey/index.html#calder-memorial-ballot",
+    "href": "posts/Assignment 5 hockey/index.html#calder-memorial-ballot",
+    "title": "Assignment 5",
+    "section": "Calder memorial ballot:",
+    "text": "Calder memorial ballot:\nSince these have already been sorted above, I’m going to grab the top 5 for my ballot:\n\n\nCode\ncalder_overlap |&gt; mutate(Rank=row_number()) |&gt; slice_head(n=5) -&gt; calder_memorial_ballot\n\ncalder_memorial_ballot\n\n\n            Player Rank\n1 Kirill Marchenko    1\n2    Matthew Knies    2\n3   Wyatt Johnston    3\n4      Marco Rossi    4\n5       JJ Peterka    5"
+  },
+  {
+    "objectID": "posts/Assignment 5 hockey/index.html#frank-j.-selke-trophy-ballot",
+    "href": "posts/Assignment 5 hockey/index.html#frank-j.-selke-trophy-ballot",
+    "title": "Assignment 5",
+    "section": "Frank J. Selke Trophy ballot",
+    "text": "Frank J. Selke Trophy ballot\n\n\nCode\nfrank_ballot &lt;- frank_contendors |&gt; slice_head(n=5) |&gt;\n  select(-c(\"LastName\")) |&gt; mutate(Rank=row_number())\n  \n\nfrank_ballot\n\n\n            Player Position GP Shots.Blocked Rank\n1    Brandon Tanev        L 59            91    1\n2        Alex Tuch        R 59            87    2\n3     Noel Acciari        C 63            73    3\n4   Rickard Rakell        R 62            66    4\n5 Vincent Trocheck        C 61            66    5"
+  },
+  {
+    "objectID": "posts/Assignment 5 hockey/index.html#lady-byng-memorial-trophy-ballot",
+    "href": "posts/Assignment 5 hockey/index.html#lady-byng-memorial-trophy-ballot",
+    "title": "Assignment 5",
+    "section": "Lady Byng Memorial Trophy ballot",
+    "text": "Lady Byng Memorial Trophy ballot\n\n\nCode\nladyb_ballot &lt;- ladyb_contenders_narrow |&gt; filter(Total.Assists&gt;45) |&gt;\n  filter(PIM_per_GP&lt;0.3) |&gt;\n  arrange(PIM_per_GP) |&gt;\n  slice_head(n=5) |&gt;\n  mutate(Rank=row_number())\n\nladyb_ballot\n\n\n        Player GP Total.Penalties Misconduct PIM Total.Assists PIM_per_GP Rank\n1  Nick Suzuki 61               3          0   6            46 0.09836066    1\n2  Jack Eichel 59               3          0   6            53 0.10169492    2\n3 Martin Necas 61               6          0  12            48 0.19672131    3\n4 Mitch Marner 60               6          0  12            58 0.20000000    4\n5 Jesper Bratt 62               6          0  14            51 0.22580645    5"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "BCB520Portfolio",
+    "section": "",
+    "text": "Assignment 5 continued\n\n\nHockey pain\n\n\n\nAssignment\n\n\nDataViz\n\n\n\n\n\n\n\n\n\nMar 21, 2025\n\n\nSharon\n\n\n\n\n\n\n\n\n\n\n\n\nAssignment 5\n\n\nHockey stuff\n\n\n\nAssignment\n\n\nDataViz\n\n\n\n\n\n\n\n\n\nMar 18, 2025\n\n\nSharon\n\n\n\n\n\n\n\n\n\n\n\n\nAssignment 4\n\n\nMarks and Channels\n\n\n\nAssignment\n\n\nDataViz\n\n\n\n\n\n\n\n\n\nFeb 13, 2025\n\n\nSharon\n\n\n\n\n\n\n\n\n\n\n\n\nBCB 520 Assignment 3\n\n\n\n\n\n\n\n\n\n\n\nJan 30, 2025\n\n\nSharon\n\n\n\n\n\n\n\n\n\n\n\n\nBCB 520 Assignment 2\n\n\n\n\n\n\n\n\n\n\n\nJan 25, 2025\n\n\nSharon\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nJan 25, 2025\n\n\nSharon\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "Sharon",
+    "section": "",
+    "text": "This is my BCB520 portfolio.\nThis is a little bit about me:"
+  },
+  {
+    "objectID": "about.html#experience",
+    "href": "about.html#experience",
+    "title": "Sharon",
+    "section": "Experience",
+    "text": "Experience\n2017-2024 | Alturas Analytics, Inc. Senior Scientist/Principal Investigator for the LC-MS/MS bioanalytical phase of pharmaceutical preclinical and clinical trials\n2012-2017 | Alturas Analytics, Inc. Associate Scientist/Scientist: developing and and validating LC-MS/MS assays to support the pharmaceutical industry\n2011, 2012 | BP Exploration Alaska: 12-week summer process engineering internships"
+  },
+  {
+    "objectID": "about.html#education",
+    "href": "about.html#education",
+    "title": "Sharon",
+    "section": "Education",
+    "text": "Education\n2008-2012 | B.S. in Chemical Engineering from Washington State University"
+  },
+  {
+    "objectID": "about.html#interests",
+    "href": "about.html#interests",
+    "title": "Sharon",
+    "section": "Interests",
+    "text": "Interests\nMountains: climbing them, looking at them."
+  },
+  {
+    "objectID": "posts/2025-01-30 assignment 3/index.html",
+    "href": "posts/2025-01-30 assignment 3/index.html",
+    "title": "BCB 520 Assignment 3",
+    "section": "",
+    "text": "Herein lies BCB 520 assignment 3, which contains an infant fecal microbiome correlation plot.\nWhat does that mean?\nFirst, a little bit about the data: I have a data table that contains participants (first column, 21 rows of participant IDs), and bacterial genera read counts averaged over 9 timepoints per participant. There were initially over 1000 bacterial genera columns of data, but I have trimmed it down to the top 30.\nBefore I go on, we will load libraries and take a peek at the data table."
+  },
+  {
+    "objectID": "posts/2025-01-30 assignment 3/index.html#correlation-plot",
+    "href": "posts/2025-01-30 assignment 3/index.html#correlation-plot",
+    "title": "BCB 520 Assignment 3",
+    "section": "Correlation plot",
+    "text": "Correlation plot\nBelow is a raw plot. Note the dark diagonal line that corresponds to correlation 1. This represents something compared to itself (like Bacteriodes to Bacteriodes mentioned above).\nEach circle represents the direction and magnitude of the correlation as described by the legend on the left. Strong correlations are indicated with a large, dark circle. Blue means positive correlation, red means negative correlation.\nBut wait- I have a better one below. I felt that this plot may be useful to understand what rcorr is doing before I trim it down to what is actually interesting (to me).\n\ncorrplot(IF_IF_rcorr$r, pch.col='black', pch.cex=0.7,\n         method=c(\"circle\"), tl.cex=0.5)\nmtext(\"Infant Fecal Microbiome Correlation- Basic\", line =3)\n\n\n\n\n\n\n\n\nNow in order to improve the usefulness of the graphic, I have done several things:\nRemove the upper triangle. You may notice that the upper and lower triangles are mirror images, so this is just redundant data.\nRemove the 1-1 correlations (the dark blue diaganol). The fact that something is 1-1 correlated with itself is not useful or interesting.\nFlag significant p values, because it would be nice to know which correlations are actually statistically significant. One star represents a “trend” (p &lt; 0.05) and two stars indicate a significant correlation (P &lt; 0.01). [Don’t people usually say p &lt; 0.05 is significant? Yes, but this is exploratory data, and we just wanted a rough way to correct for false discovery rate. Don’t get me started on p value adjustments for correlation matrices. It’s a living nightmare.]\nI have also clustered the correlations with similar direction and magnitude using “Angular order of the Eigenvectors” (AOE). Basically that groups dots with similar colors and sizes together. There are other clustering methods, but I don’t understand them well enough to know which is the best."
+  },
+  {
     "objectID": "posts/MarksChannels/index.html",
     "href": "posts/MarksChannels/index.html",
     "title": "Assignment 4",
@@ -61,104 +166,6 @@
     "title": "Assignment 4",
     "section": "Extra",
     "text": "Extra\nI think the ellipses are terrible.\n\n\nCode\ncorrplot(IF_IF_rcorr2$r, pch.col='black', pch.cex=0.7,\n         method=c(\"ellipse\"), tl.cex=0.5)\nmtext(\"Extra: ellipses\", line =3)"
-  },
-  {
-    "objectID": "posts/2025-01-30 assignment 3/index.html",
-    "href": "posts/2025-01-30 assignment 3/index.html",
-    "title": "BCB 520 Assignment 3",
-    "section": "",
-    "text": "Herein lies BCB 520 assignment 3, which contains an infant fecal microbiome correlation plot.\nWhat does that mean?\nFirst, a little bit about the data: I have a data table that contains participants (first column, 21 rows of participant IDs), and bacterial genera read counts averaged over 9 timepoints per participant. There were initially over 1000 bacterial genera columns of data, but I have trimmed it down to the top 30.\nBefore I go on, we will load libraries and take a peek at the data table."
-  },
-  {
-    "objectID": "posts/2025-01-30 assignment 3/index.html#correlation-plot",
-    "href": "posts/2025-01-30 assignment 3/index.html#correlation-plot",
-    "title": "BCB 520 Assignment 3",
-    "section": "Correlation plot",
-    "text": "Correlation plot\nBelow is a raw plot. Note the dark diagonal line that corresponds to correlation 1. This represents something compared to itself (like Bacteriodes to Bacteriodes mentioned above).\nEach circle represents the direction and magnitude of the correlation as described by the legend on the left. Strong correlations are indicated with a large, dark circle. Blue means positive correlation, red means negative correlation.\nBut wait- I have a better one below. I felt that this plot may be useful to understand what rcorr is doing before I trim it down to what is actually interesting (to me).\n\ncorrplot(IF_IF_rcorr$r, pch.col='black', pch.cex=0.7,\n         method=c(\"circle\"), tl.cex=0.5)\nmtext(\"Infant Fecal Microbiome Correlation- Basic\", line =3)\n\n\n\n\n\n\n\n\nNow in order to improve the usefulness of the graphic, I have done several things:\nRemove the upper triangle. You may notice that the upper and lower triangles are mirror images, so this is just redundant data.\nRemove the 1-1 correlations (the dark blue diaganol). The fact that something is 1-1 correlated with itself is not useful or interesting.\nFlag significant p values, because it would be nice to know which correlations are actually statistically significant. One star represents a “trend” (p &lt; 0.05) and two stars indicate a significant correlation (P &lt; 0.01). [Don’t people usually say p &lt; 0.05 is significant? Yes, but this is exploratory data, and we just wanted a rough way to correct for false discovery rate. Don’t get me started on p value adjustments for correlation matrices. It’s a living nightmare.]\nI have also clustered the correlations with similar direction and magnitude using “Angular order of the Eigenvectors” (AOE). Basically that groups dots with similar colors and sizes together. There are other clustering methods, but I don’t understand them well enough to know which is the best."
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "Sharon",
-    "section": "",
-    "text": "This is my BCB520 portfolio.\nThis is a little bit about me:"
-  },
-  {
-    "objectID": "about.html#experience",
-    "href": "about.html#experience",
-    "title": "Sharon",
-    "section": "Experience",
-    "text": "Experience\n2017-2024 | Alturas Analytics, Inc. Senior Scientist/Principal Investigator for the LC-MS/MS bioanalytical phase of pharmaceutical preclinical and clinical trials\n2012-2017 | Alturas Analytics, Inc. Associate Scientist/Scientist: developing and and validating LC-MS/MS assays to support the pharmaceutical industry\n2011, 2012 | BP Exploration Alaska: 12-week summer process engineering internships"
-  },
-  {
-    "objectID": "about.html#education",
-    "href": "about.html#education",
-    "title": "Sharon",
-    "section": "Education",
-    "text": "Education\n2008-2012 | B.S. in Chemical Engineering from Washington State University"
-  },
-  {
-    "objectID": "about.html#interests",
-    "href": "about.html#interests",
-    "title": "Sharon",
-    "section": "Interests",
-    "text": "Interests\nMountains: climbing them, looking at them."
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "BCB520Portfolio",
-    "section": "",
-    "text": "Assignment 5\n\n\nHockey stuff\n\n\n\nAssignment\n\n\nDataViz\n\n\n\n\n\n\n\n\n\nMar 18, 2025\n\n\nSharon\n\n\n\n\n\n\n\n\n\n\n\n\nAssignment 4\n\n\nMarks and Channels\n\n\n\nAssignment\n\n\nDataViz\n\n\n\n\n\n\n\n\n\nFeb 13, 2025\n\n\nSharon\n\n\n\n\n\n\n\n\n\n\n\n\nBCB 520 Assignment 3\n\n\n\n\n\n\n\n\n\n\n\nJan 30, 2025\n\n\nSharon\n\n\n\n\n\n\n\n\n\n\n\n\nBCB 520 Assignment 2\n\n\n\n\n\n\n\n\n\n\n\nJan 25, 2025\n\n\nSharon\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nJan 25, 2025\n\n\nSharon\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "posts/Assignment 5 hockey/index.html",
-    "href": "posts/Assignment 5 hockey/index.html",
-    "title": "Assignment 5",
-    "section": "",
-    "text": "Here are my selections for the hockey trophies listed and described below in each section.\nFor each award, I have created a ballot of five players, ranked from 1 (first choice) to 5 (fifth choice). For each ballot, I have provided one to three visualizations that explain and justify the ballot."
-  },
-  {
-    "objectID": "posts/Assignment 5 hockey/index.html#vezina-ballot",
-    "href": "posts/Assignment 5 hockey/index.html#vezina-ballot",
-    "title": "Assignment 5",
-    "section": "Vezina ballot",
-    "text": "Vezina ballot\nOnce the data is filtered by &gt; 40 games played and &gt; 1100 saves, it seems like the best discerning feature would be % Saves (if I understand the data correctly). Once those are all sorted out, the top 5 players below will be on my Vezina Trophy ballot.\nThe vezina ballot:\n\n\nCode\nVezina_ballot &lt;- Goalie |&gt; select(Player, GP, Shots.Against, Saves, SV.) |&gt;\n  filter(GP &gt; 40) |&gt;\n  filter(Saves &gt; 1100) |&gt;\n  arrange(desc(SV.)) |&gt;\n  mutate(Rank=row_number()) |&gt;\n  slice_head(n=5)\n  \nVezina_ballot\n\n\n               Player GP Shots.Against Saves   SV. Rank\n1   Connor Hellebuyck 46          1262  1170 0.927    1\n2  Andrei Vasilevskiy 48          1335  1232 0.923    2\n3 Mackenzie Blackwood 44          1229  1125 0.915    3\n4     Igor Shesterkin 44          1263  1144 0.906    4\n5        Ilya Sorokin 45          1237  1117 0.903    5"
-  },
-  {
-    "objectID": "posts/Assignment 5 hockey/index.html#hart-memorial-ballot",
-    "href": "posts/Assignment 5 hockey/index.html#hart-memorial-ballot",
-    "title": "Assignment 5",
-    "section": "Hart Memorial ballot",
-    "text": "Hart Memorial ballot\nAfter consideration, it seems to me that there is not an appreciable difference between playing 54 and 62 games, so that will not be considered. The only factor I will consider needed is GF, because this already sorts out players who have only played a small number of games. Therefore I will take the top 5 in the GF category:\nThe hart memorial ballot:\n\n\nCode\nhartmemorial_ballot &lt;- OnIce.Skater |&gt; select(Player, GF, GP) |&gt;\n  arrange(desc(GF)) |&gt;\n  slice_head(n=5) |&gt;\n  mutate(Rank=row_number())\n\nhartmemorial_ballot\n\n\n            Player  GF GP Rank\n1 Nathan MacKinnon 116 61    1\n2   Leon Draisaitl 109 60    2\n3  Nikita Kucherov 109 57    3\n4       Cale Makar 109 61    4\n5      Jack Eichel 106 59    5"
-  },
-  {
-    "objectID": "posts/Assignment 5 hockey/index.html#james-norris-ballot",
-    "href": "posts/Assignment 5 hockey/index.html#james-norris-ballot",
-    "title": "Assignment 5",
-    "section": "James Norris ballot",
-    "text": "James Norris ballot\nHere is the James Norris ballot, based on shots blocked:\n\n\nCode\nJames_norris_ballot &lt;- top_shotsblocked |&gt; slice_head(n=5) |&gt;\n  mutate(Rank=row_number())\n\nJames_norris_ballot\n\n\n            Player     Team GP Shots.Blocked Rank\n1         Ian Cole      UTA 61           160    1\n2     Jacob Trouba ANA, NYR 58           158    2\n3      Chris Tanev      TOR 57           151    3\n4 Rasmus Andersson      CGY 60           147    4\n5      Nick Seeler      PHI 56           142    5"
-  },
-  {
-    "objectID": "posts/Assignment 5 hockey/index.html#calder-memorial-ballot",
-    "href": "posts/Assignment 5 hockey/index.html#calder-memorial-ballot",
-    "title": "Assignment 5",
-    "section": "Calder memorial ballot:",
-    "text": "Calder memorial ballot:\nSince these have already been sorted above, I’m going to grab the top 5 for my ballot:\n\n\nCode\ncalder_overlap |&gt; mutate(Rank=row_number()) |&gt; slice_head(n=5) -&gt; calder_memorial_ballot\n\ncalder_memorial_ballot\n\n\n            Player Rank\n1 Kirill Marchenko    1\n2    Matthew Knies    2\n3   Wyatt Johnston    3\n4      Marco Rossi    4\n5       JJ Peterka    5"
-  },
-  {
-    "objectID": "posts/Assignment 5 hockey/index.html#frank-j.-selke-trophy-ballot",
-    "href": "posts/Assignment 5 hockey/index.html#frank-j.-selke-trophy-ballot",
-    "title": "Assignment 5",
-    "section": "Frank J. Selke Trophy ballot",
-    "text": "Frank J. Selke Trophy ballot\n\n\nCode\nfrank_ballot &lt;- frank_contendors |&gt; slice_head(n=5) |&gt;\n  select(-c(\"LastName\")) |&gt; mutate(Rank=row_number())\n  \n\nfrank_ballot\n\n\n            Player Position GP Shots.Blocked Rank\n1    Brandon Tanev        L 59            91    1\n2        Alex Tuch        R 59            87    2\n3     Noel Acciari        C 63            73    3\n4   Rickard Rakell        R 62            66    4\n5 Vincent Trocheck        C 61            66    5"
-  },
-  {
-    "objectID": "posts/Assignment 5 hockey/index.html#lady-byng-memorial-trophy-ballot",
-    "href": "posts/Assignment 5 hockey/index.html#lady-byng-memorial-trophy-ballot",
-    "title": "Assignment 5",
-    "section": "Lady Byng Memorial Trophy ballot",
-    "text": "Lady Byng Memorial Trophy ballot\n\n\nCode\nladyb_ballot &lt;- ladyb_contenders_narrow |&gt; filter(Total.Assists&gt;45) |&gt;\n  filter(PIM_per_GP&lt;0.3) |&gt;\n  arrange(PIM_per_GP) |&gt;\n  slice_head(n=5) |&gt;\n  mutate(Rank=row_number())\n\nladyb_ballot\n\n\n        Player GP Total.Penalties Misconduct PIM Total.Assists PIM_per_GP Rank\n1  Nick Suzuki 61               3          0   6            46 0.09836066    1\n2  Jack Eichel 59               3          0   6            53 0.10169492    2\n3 Martin Necas 61               6          0  12            48 0.19672131    3\n4 Mitch Marner 60               6          0  12            58 0.20000000    4\n5 Jesper Bratt 62               6          0  14            51 0.22580645    5"
   },
   {
     "objectID": "posts/post-with-code/index.html",

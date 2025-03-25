@@ -1847,6 +1847,44 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb52-524"><a href="#cb52-524" aria-hidden="true" tabindex="-1"></a>ladyb_ballot</span>
 <span id="cb52-525"><a href="#cb52-525" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb52-526"><a href="#cb52-526" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-529"><a href="#cb52-529" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-530"><a href="#cb52-530" aria-hidden="true" tabindex="-1"></a>calder_memorial_ballot <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">Voter=</span><span class="st">"Sharon"</span>, <span class="at">Award=</span><span class="st">"Calder Memorial"</span>) <span class="ot">-&gt;</span> combine_calder</span>
+<span id="cb52-531"><a href="#cb52-531" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-532"><a href="#cb52-532" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-535"><a href="#cb52-535" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-536"><a href="#cb52-536" aria-hidden="true" tabindex="-1"></a>hartmemorial_ballot <span class="sc">|&gt;</span> <span class="fu">select</span>(Player, Rank) <span class="sc">|&gt;</span></span>
+<span id="cb52-537"><a href="#cb52-537" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Voter=</span><span class="st">"Sharon"</span>, <span class="at">Award=</span><span class="st">"Hart Memorial"</span>) <span class="ot">-&gt;</span> combine_hart</span>
+<span id="cb52-538"><a href="#cb52-538" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-539"><a href="#cb52-539" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-542"><a href="#cb52-542" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-543"><a href="#cb52-543" aria-hidden="true" tabindex="-1"></a>James_norris_ballot <span class="sc">|&gt;</span> <span class="fu">select</span>(Player, Rank) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">Voter=</span><span class="st">"Sharon"</span>, <span class="at">Award=</span><span class="st">"James Norris Memorial"</span>) <span class="ot">-&gt;</span> combine_James</span>
+<span id="cb52-544"><a href="#cb52-544" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-545"><a href="#cb52-545" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-548"><a href="#cb52-548" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-549"><a href="#cb52-549" aria-hidden="true" tabindex="-1"></a>Vezina_ballot <span class="sc">|&gt;</span> <span class="fu">select</span>(Player, Rank) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">Voter=</span><span class="st">"Sharon"</span>, <span class="at">Award=</span><span class="st">"Vezina"</span>) <span class="ot">-&gt;</span> combine_vezina</span>
+<span id="cb52-550"><a href="#cb52-550" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-551"><a href="#cb52-551" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-554"><a href="#cb52-554" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-555"><a href="#cb52-555" aria-hidden="true" tabindex="-1"></a>frank_ballot <span class="sc">|&gt;</span> <span class="fu">select</span>(Player, Rank) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">Voter=</span><span class="st">"Sharon"</span>, <span class="at">Award=</span><span class="st">"Frank Selke Memorial"</span>) <span class="ot">-&gt;</span> combine_frank</span>
+<span id="cb52-556"><a href="#cb52-556" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-557"><a href="#cb52-557" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-560"><a href="#cb52-560" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-561"><a href="#cb52-561" aria-hidden="true" tabindex="-1"></a>ladyb_ballot <span class="sc">|&gt;</span> <span class="fu">select</span>(Player, Rank) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">Voter=</span><span class="st">"Sharon"</span>, <span class="at">Award=</span><span class="st">"Lady Byng Memorial"</span>) <span class="ot">-&gt;</span> combine_ladyb</span>
+<span id="cb52-562"><a href="#cb52-562" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-563"><a href="#cb52-563" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-566"><a href="#cb52-566" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-567"><a href="#cb52-567" aria-hidden="true" tabindex="-1"></a>sharon_ballot <span class="ot">&lt;-</span> <span class="fu">rbind</span>(combine_calder, combine_hart, combine_James, combine_vezina, combine_frank, combine_ladyb)</span>
+<span id="cb52-568"><a href="#cb52-568" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-569"><a href="#cb52-569" aria-hidden="true" tabindex="-1"></a>sharon_ballot <span class="sc">|&gt;</span> <span class="fu">relocate</span>(Voter) <span class="sc">|&gt;</span></span>
+<span id="cb52-570"><a href="#cb52-570" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(Award, <span class="at">.after=</span>Voter) <span class="sc">|&gt;</span></span>
+<span id="cb52-571"><a href="#cb52-571" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(Rank, <span class="at">.after=</span>Award) <span class="ot">-&gt;</span> sharon_ballot</span>
+<span id="cb52-572"><a href="#cb52-572" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-573"><a href="#cb52-573" aria-hidden="true" tabindex="-1"></a>sharon_ballot</span>
+<span id="cb52-574"><a href="#cb52-574" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb52-575"><a href="#cb52-575" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-578"><a href="#cb52-578" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb52-579"><a href="#cb52-579" aria-hidden="true" tabindex="-1"></a><span class="fu">saveRDS</span>(sharon_ballot, <span class="at">file=</span><span class="st">"sharon_ballot.rds"</span>)</span>
+<span id="cb52-580"><a href="#cb52-580" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

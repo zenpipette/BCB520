@@ -1,0 +1,276 @@
+---
+title: "Assignment 5 continued"
+subtitle: "Hockey pain"
+author: "Sharon"
+date: "2025-03-21"
+format: html
+categories: [Assignment, DataViz]
+image: ron.jpg
+code-fold: true
+code-tools: true
+descrption: "Summary of ballots"
+---
+
+In this continuation of Assignment 5, I will combine all the ballots from my classmates into 1 using a scoring system. If the player is ranked 1, they get 10 points. Rank 2 gets 7 points and so on like this:
+
+Rank 1- 10 points
+Rank 2- 7 points
+Rank 3- 5 points
+Rank 4- 3 points
+Rank 5- 1 point
+
+Then we will see who has the highest score, and they will be on the final ballots.
+
+First all ballots need to be gathered, rearranged, and combined.
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include=FALSE}
+library(readr)
+library(readxl)
+library(dplyr)
+library(tidyr)
+library(stringr)
+```
+
+Obtain Sharon's ballot, which is the gold standard for formatting:
+```{r}
+Sharon <- readRDS("C:/Users/sharo/Desktop/BCB 520/BCB520/posts/Mar_20_ballots/sharon_ballot.rds")
+Sharon |> mutate(Award = str_replace_all(Award, c("Frank Selke Memorial" = "Frank", 
+                                                  "Calder Memorial"="Calder",
+                                                  "Hart Memorial"="Hart",
+                                                  "James Norris Memorial" = "James",
+                                                  "Lady Byng Memorial"="Lady"))) -> Sharon
+```
+
+Obtain Barrie's ballot and adjust.
+```{r}
+Barrie <- read_excel("C:/Users/sharo/Desktop/BCB 520/BCB520/posts/Mar_20_ballots/Barrie.xlsx")
+
+Barrie |>
+  mutate(Award = str_replace_all(Award, c("Selke" = "Frank", "Byng" = "Lady", "Norris" = "James"))) -> Barrie
+```
+
+Obtain Betsy's ballot and adjust.
+```{r}
+Betsy <- read_excel("C:/Users/sharo/Desktop/BCB 520/BCB520/posts/Mar_20_ballots/BetsyChurchHockeyBallot.xlsx")
+Betsy |> relocate(`Player Name`, .before=Name) |>
+  relocate(`Nomination position`, .before=Name) |>
+  rename(
+    Player = `Player Name`,
+    Rank = `Nomination position`,
+    Voter = Name
+  ) |>
+  mutate(Award = str_replace_all(Award, c("Selke" = "Frank", "Byng" = "Lady", "Norris" = "James"))) -> Betsy
+```
+
+Obtain Justice's ballot and adjust.
+```{r}
+Justice <- read_excel("C:/Users/sharo/Desktop/BCB 520/BCB520/posts/Mar_20_ballots/Book 10.xlsx")
+Justice |> fill(Award) |>
+  group_by(Award) %>%
+  mutate(Rank = rep(1:5, length.out = n()), Voter = "Justice") %>%
+  ungroup() |>
+  rename(Player = `Top 5 Individuals`) %>%
+  select(Player, Rank, Voter, Award) -> Justice
+
+Justice |> 
+  mutate(Player=strsplit(as.character(Player), "-")) |>
+  unnest(Player) |>
+  mutate(Award = str_replace_all(Award, c("Hart Memorial" = "Hart", "Vezina Trophy" = "Vezina", 
+                                          "James Norris Memorial"= "James", "Calder Memorial"="Calder", 
+                                          "Frank J Selke"="Frank"))) |>
+  filter(!is.na(Player)) -> Justice
+```
+
+Obtain Marwa's ballot and adjust.
+```{r}
+Marwa <- read_excel("C:/Users/sharo/Desktop/BCB 520/BCB520/posts/Mar_20_ballots/Book 11.xlsx")
+Marwa |> mutate(Award = str_replace_all(Award, c("Hart Memorial Trophy" = "Hart", "Vezina Trophy" = "Vezina", 
+                                          "James Norris Memorial Trophy"= "James", "Calder Memorial Trophy"="Calder", 
+                                          "Frank J. Selke Trophy"="Frank", "Lady Byng Memorial Trophy"="Lady"))) -> Marwa
+```
+
+Obtain Claire's ballot and adjust.
+```{r}
+Claire <- read.table("C:/Users/sharo/Desktop/BCB 520/BCB520/posts/Mar_20_ballots/CS_ballot.txt", header = TRUE, sep = ",", stringsAsFactors = FALSE)
+
+Claire |> mutate(Award = str_replace_all(Award, c("Heart" = "Hart", 
+                                          "James Norris"= "James", 
+                                          "Frank J. Selke"="Frank", "Lady Btng"="Lady"))) |>
+  select(Player, Rank, Voter, Award) -> Claire
+
+
+```
+
+Obtain Ian's ballot and adjust.
+```{r}
+Ian <- read_excel("C:/Users/sharo/Desktop/BCB 520/BCB520/posts/Mar_20_ballots/IAN HOCKEY NOMINATIONS.xlsx")
+Ian |> select(Voter, Trophy, Player) |>
+  group_by(Trophy) |>
+  mutate(Rank=row_number()) |>
+  ungroup() |>
+  mutate(Award = str_replace_all(Trophy, c("Hart Memorial" = "Hart", 
+                                          "James Norris"= "James", "Calder Memorial"="Calder",
+                                          "Frank J Selke"="Frank", "Lady Byng"="Lady"))) |>
+  select(Player, Rank, Voter, Award) -> Ian
+  
+```
+
+Obtain John's ballot and adjust.
+```{r}
+John <- read.table("C:/Users/sharo/Desktop/BCB 520/BCB520/posts/Mar_20_ballots/JohnCam.txt", header = TRUE, sep = ",", stringsAsFactors = FALSE)
+
+John |> mutate(Voter="John") |> 
+  mutate(Award = str_replace_all(Award, c("James Norris"= "James",
+                                          "Frank J. Selke"="Frank", "Lady Bing"="Lady"))) |>
+  rename(Rank = Place) |>
+  select(Player, Rank, Voter, Award) -> John
+
+```
+
+Obtain Henry's ballot and adjust.
+```{r}
+Henry <- read_excel("C:/Users/sharo/Desktop/BCB 520/BCB520/posts/Mar_20_ballots/NHL award ballot HT.xlsx")
+Henry |> mutate(Award = str_replace_all(Award, c("James Norris"= "James",
+                                          "Frank J. Selke"="Frank", "Lady Byng"="Lady"))) |>
+  mutate(Voter = ifelse(Voter == "Henry Trujillo", "Henry", Voter)) -> Henry
+
+```
+
+Obtain Priya's ballot and adjust.
+```{r}
+Priya <- read_excel("C:/Users/sharo/Desktop/BCB 520/BCB520/posts/Mar_20_ballots/NHL_Award_ballet.xlsx")
+Priya %>%
+  pivot_longer(cols = -c(Voters, Rank), names_to = "Award", values_to = "Player") %>%
+  mutate(Voters = ifelse(Voters == "'\"'", "Priya", Voters)) |>
+  mutate(Voter="Priya") |> select(-Voters) |>
+  mutate(Award = str_replace_all(Award, c("VEZINA"= "Vezina",
+                                          "HART"="Hart",
+                                          "JAMES NORRIS"="James",
+                                          "CALDER"="Calder",
+                                          "FRANK J SELKE"="Frank",
+                                          "LADY BING"="Lady"))) |>
+  select(Player, Rank, Voter, Award) -> Priya
+
+```
+
+Everyone's combined ballots (head only)
+```{r}
+everyone <- rbind(Barrie, Sharon, Betsy, Claire, Henry, Ian, John, Justice, Marwa, Priya)
+
+everyone |>
+  mutate(Player = str_squish(Player)) %>%
+  mutate(Player = ifelse(str_detect(Player, " "), 
+                         word(Player, -1), 
+                         Player)) |>
+  mutate(Player = ifelse(Player == "Caufieldn", "Caufield", Player)) |>
+  mutate(Player = ifelse(str_detect(Player, "^Go"), "Gostisbeher", Player)) -> everyone
+head(everyone)
+```
+
+The final scores (head only)
+```{r}
+everyone |>mutate(Score = case_when(
+    Rank == 5 ~ 1,
+    Rank == 4 ~ 3,
+    Rank == 3 ~ 5,
+    Rank == 2 ~ 7,
+    Rank == 1 ~ 10,
+    TRUE ~ 0  # default case if Rank is not 1-5
+  )) |> 
+  group_by(Award, Player)|>
+  summarise(sum(Score)) -> finalscore
+
+head(finalscore)
+
+```
+
+```{r}
+finalscore <- finalscore %>%
+  rename(sumscore = `sum(Score)`)
+```
+
+Create final ballots for each award
+
+I acknowledge ties in the scores and choose not to do anything about them.
+
+Calder Memorial
+```{r}
+finalscore |> filter(Award=="Calder") |>
+  arrange(desc(sumscore)) |>
+  slice_head(n=5) |>
+  mutate(Rank=row_number()) -> final_ballot_calder
+
+final_ballot_calder
+```
+
+Frank Selke
+```{r}
+finalscore |> filter(Award=="Frank") |>
+  arrange(desc(sumscore)) |>
+  slice_head(n=5) |>
+  mutate(Rank=row_number()) -> final_ballot_Frank
+
+final_ballot_Frank
+```
+Hart Memorial
+```{r}
+finalscore |> filter(Award=="Hart") |>
+  arrange(desc(sumscore)) |>
+  slice_head(n=5) |>
+  mutate(Rank=row_number()) -> final_ballot_hart
+
+final_ballot_hart
+```
+
+James Norris
+```{r}
+finalscore |> filter(Award=="James") |>
+  arrange(desc(sumscore)) |>
+  slice_head(n=5) |>
+  mutate(Rank=row_number()) -> final_ballot_James
+
+final_ballot_James
+```
+Lady Byng
+```{r}
+finalscore |> filter(Award=="Lady") |>
+  arrange(desc(sumscore)) |>
+  slice_head(n=5) |>
+  mutate(Rank=row_number()) -> final_ballot_lady
+
+final_ballot_lady
+```
+Vezina memorial
+```{r}
+finalscore |> filter(Award=="Vezina") |>
+  arrange(desc(sumscore)) |>
+  slice_head(n=5) |>
+  mutate(Rank=row_number()) -> final_ballot_vezina
+
+final_ballot_vezina
+```
+
+I am going to rename Frank to Selke, James to Norris, and Lady to Byng because I don't know why I chose the first names. Last names sound better.
+
+Here is the final compiled ballot:
+
+```{r}
+final_ballot <- rbind(final_ballot_calder, final_ballot_Frank, final_ballot_hart, final_ballot_James, 
+                      final_ballot_lady, final_ballot_vezina)
+
+final_ballot <- final_ballot |> 
+  mutate(Award = case_when(
+    Award == "Frank" ~ "Selke",
+    Award == "James" ~ "Norris",
+    Award == "Lady" ~ "Byng",
+    TRUE ~ Award  # Keep other entries unchanged
+  ))
+
+final_ballot
+```
+
