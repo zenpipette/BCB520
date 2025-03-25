@@ -257,7 +257,7 @@ final_ballot_vezina
 
 I am going to rename Frank to Selke, James to Norris, and Lady to Byng because I don't know why I chose the first names. Last names sound better.
 
-Here is the final compiled ballot:
+Here is the final compiled ballot, which is also saved here on github as an rds object, "Sharon_final_ballot_combined.rds":
 
 ```{r}
 final_ballot <- rbind(final_ballot_calder, final_ballot_Frank, final_ballot_hart, final_ballot_James, 
@@ -271,6 +271,8 @@ final_ballot <- final_ballot |>
     TRUE ~ Award  # Keep other entries unchanged
   ))
 
-final_ballot
+saveRDS(final_ballot, file="Sharon_final_ballot_combined.rds")
+
+print(final_ballot)
 ```
 
