@@ -472,4 +472,42 @@ ladyb_ballot <- ladyb_contenders_narrow |> filter(Total.Assists>45) |>
 ladyb_ballot
 ```
 
+```{r}
+calder_memorial_ballot |> mutate(Voter="Sharon", Award="Calder Memorial") -> combine_calder
+```
+
+```{r}
+hartmemorial_ballot |> select(Player, Rank) |>
+  mutate(Voter="Sharon", Award="Hart Memorial") -> combine_hart
+```
+
+```{r}
+James_norris_ballot |> select(Player, Rank) |> mutate(Voter="Sharon", Award="James Norris Memorial") -> combine_James
+```
+
+```{r}
+Vezina_ballot |> select(Player, Rank) |> mutate(Voter="Sharon", Award="Vezina") -> combine_vezina
+```
+
+```{r}
+frank_ballot |> select(Player, Rank) |> mutate(Voter="Sharon", Award="Frank Selke Memorial") -> combine_frank
+```
+
+```{r}
+ladyb_ballot |> select(Player, Rank) |> mutate(Voter="Sharon", Award="Lady Byng Memorial") -> combine_ladyb
+```
+
+```{r}
+sharon_ballot <- rbind(combine_calder, combine_hart, combine_James, combine_vezina, combine_frank, combine_ladyb)
+
+sharon_ballot |> relocate(Voter) |>
+  relocate(Award, .after=Voter) |>
+  relocate(Rank, .after=Award) -> sharon_ballot
+
+sharon_ballot
+```
+
+```{r}
+saveRDS(sharon_ballot, file="sharon_ballot.rds")
+```
 
